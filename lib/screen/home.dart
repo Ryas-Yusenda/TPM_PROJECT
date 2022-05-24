@@ -7,7 +7,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:news_info/constants.dart';
 import 'package:news_info/services/api.dart';
 import 'package:news_info/models/news_get.dart';
-import 'package:news_info/screen/bottom_sheet.dart';
+import 'package:news_info/screen/bottom_sheet_main.dart';
+import 'dart:math';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -17,28 +18,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  var listNews = [
-    "Terbaru",
-    "Politik",
-    "Hukum",
-    "Ekonomi",
-    "Bola",
-    "Olahraga",
-    "Humaniora",
-    "Lifestyle",
-    "Hiburan",
-    "Dunia",
-    "Tekno",
-    "Otomotif",
-  ];
-  var statuslistnews = 'Terbaru';
-
-  bool warnaListNews(String data) {
-    if (statuslistnews == data) {
-      return true;
-    }
-    return false;
-  }
+  var statuslistnews = 'Politik';
 
   @override
   Widget build(BuildContext context) {
@@ -65,11 +45,11 @@ class _HomePageState extends State<HomePage> {
             )
           ],
         ),
-        body: _temaNews(),
+        body: _main(),
         bottomSheet: const BottomSheetMain());
   }
 
-  Widget _temaNews() {
+  Widget _main() {
     return Column(
       children: [
         Expanded(
@@ -77,76 +57,62 @@ class _HomePageState extends State<HomePage> {
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Expanded(
-                        child: Align(
-                      alignment: const AlignmentDirectional(1, 0),
-                      child: Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 10, 0),
-                        child: TextButton(
-                          onPressed: () {
-                            print('//TODO: Tambah Menu Untuk Melihat Semua');
-                          },
-                          style: TextButton.styleFrom(
-                            primary: kPrimaryColor,
-                          ),
-                          child: const Text(
-                            'Lihat Semua',
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
-                              color: kPrimaryColor,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ))
-                  ],
-                ),
-                Center(
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        for (var item in listNews) _listTemaBerita(item),
-                      ],
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: _buildDetailCountriesBody(statuslistnews.toLowerCase()),
-                ),
+                _cariLihatsemua(),
+                _listTemaBuild(),
+                _listBeritaBuild(statuslistnews.toLowerCase()),
               ]),
         ),
       ],
     );
   }
 
-  Widget _buildDetailCountriesBody(String namaBerita) {
-    return FutureBuilder(
-      future: CovidDataSource.instance
-          .loadCountries(namaBerita),
-      builder: (
-        BuildContext context,
-        AsyncSnapshot<dynamic> snapshot,
-      ) {
-        if (snapshot.hasError) {
-          return _buildErrorSection();
-        }
-        if (snapshot.hasData) {
-          BeritaPost countriesModel = BeritaPost.fromJson(snapshot.data);
-          return _buildSuccessSection(countriesModel, namaBerita);
-        }
-        return _buildLoadingSection();
-      },
+  Widget _cariLihatsemua() {
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        Expanded(
+            child: Align(
+          alignment: const AlignmentDirectional(1, 0),
+          child: Padding(
+            padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 10, 0),
+            child: TextButton(
+              onPressed: () {
+                print('//TODO: Tambah Menu Untuk Melihat Semua');
+              },
+              style: TextButton.styleFrom(
+                primary: kPrimaryColor,
+              ),
+              child: const Text(
+                'Lihat Semua',
+                style: TextStyle(
+                  fontFamily: 'Poppins',
+                  color: kPrimaryColor,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+          ),
+        ))
+      ],
     );
   }
 
-  Widget _listTemaBerita(String name) {
+  Widget _listTemaBuild() {
+    return Center(
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            for (var item in listNews) _listTemaBuildBerita(item),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _listTemaBuildBerita(String name) {
     return Padding(
       padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 12),
       child: SizedBox(
@@ -163,13 +129,17 @@ class _HomePageState extends State<HomePage> {
             name,
             style: TextStyle(
               fontFamily: 'Poppins',
-              color: warnaListNews(name) ? Colors.white : kPrimaryColor,
+              color: warnaListNews(statuslistnews, name)
+                  ? Colors.white
+                  : kPrimaryColor,
               fontSize: 14,
               fontWeight: FontWeight.w500,
             ),
           ),
           style: ElevatedButton.styleFrom(
-            primary: warnaListNews(name) ? kPrimaryColor : Colors.white,
+            primary: warnaListNews(statuslistnews, name)
+                ? kPrimaryColor
+                : Colors.white,
             shadowColor: kSecondaryColor,
             side: const BorderSide(
               color: kPrimaryColor,
@@ -184,21 +154,35 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildErrorSection() {
-    return const Text("Error");
+  Widget _listBeritaBuild(String namaBerita) {
+    return Expanded(
+      child: FutureBuilder(
+        future: CovidDataSource.instance.loadCountries(namaBerita),
+        builder: (
+          BuildContext context,
+          AsyncSnapshot<dynamic> snapshot,
+        ) {
+          if (snapshot.hasData) {
+            BeritaPost countriesModel = BeritaPost.fromJson(snapshot.data);
+            return _listBeritaBuildSuccess(countriesModel, namaBerita);
+          }
+          return _listBeritaBuildLoading();
+        },
+      ),
+    );
   }
 
-  Widget _buildLoadingSection() {
+  Widget _listBeritaBuildLoading() {
     return const Center(
       child: CircularProgressIndicator(),
     );
   }
 
-  Widget _buildSuccessSection(BeritaPost data, String nama) {
+  Widget _listBeritaBuildSuccess(BeritaPost data, String nama) {
     return ListView.builder(
       itemCount: data.data.posts.length,
       itemBuilder: (BuildContext context, int index) {
-        return _newsInfo(
+        return _listBeritaBuildSuccessDetail(
           data.data.posts[index].thumbnail,
           data.data.posts[index].title,
           data.data.posts[index].description,
@@ -208,7 +192,8 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _newsInfo(String image, String title, String detail, String namaBerita) {
+  Widget _listBeritaBuildSuccessDetail(
+      String image, String title, String detail, String nama) {
     return Row(
       mainAxisSize: MainAxisSize.max,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -266,9 +251,16 @@ class _HomePageState extends State<HomePage> {
                     clipBehavior: Clip.antiAlias,
                     decoration: const BoxDecoration(
                       shape: BoxShape.circle,
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(color: kSecondaryColor, spreadRadius: 1),
+                      ],
                     ),
-                    child: Image.network(
-                      'https://upload.wikimedia.org/wikipedia/commons/f/fb/Cnn_logo_red_background.png',
+                    child: Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Image.network(
+                        'https://www.antaranews.com/img/favicon/android-icon-192x192.png',
+                      ),
                     ),
                   ),
                   const Padding(
@@ -290,11 +282,11 @@ class _HomePageState extends State<HomePage> {
                       child: ElevatedButton(
                         onPressed: () {
                           setState(() {
-                            statuslistnews = namaBerita;
+                            statuslistnews = nama;
                           });
                         },
                         child: Text(
-                          namaBerita.capitalize(),
+                          nama.capitalize(),
                           style: const TextStyle(
                             fontFamily: 'Poppins',
                             color: kPrimaryColor,

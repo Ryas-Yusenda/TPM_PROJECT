@@ -9,3 +9,39 @@ const kPrimaryGradient = LinearGradient(
   begin: Alignment.centerLeft,
   end: Alignment.centerRight,
 );
+
+bool warnaListNews(String data1, String data2) {
+  if (data1 == data2) {
+    return true;
+  }
+  return false;
+}
+
+var listNews = [
+  "Politik",
+  "Hukum",
+  "Ekonomi",
+  "Bola",
+  "Olahraga",
+  "Humaniora",
+  "Lifestyle",
+  "Hiburan",
+  "Dunia",
+  "Tekno",
+  "Otomotif",
+];
+
+List<String> listSource = [
+    "antara",
+    "cnbc",
+    "cnn",
+    "jpnn",
+    "kumparan",
+    "merdeka",
+    "okezone",
+    "republika",
+    "sindonews",
+    "suara",
+    "tempo",
+    "tribun",
+  ];

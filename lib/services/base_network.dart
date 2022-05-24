@@ -2,23 +2,9 @@
 
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:news_info/constants.dart';
 
 class BaseNetwork {
-  static List<String> listSource = [
-    "antara",
-    "cnbc",
-    "cnn",
-    "jpnn",
-    "kumparan",
-    "merdeka",
-    "okezone",
-    "republika",
-    "sindonews",
-    "suara",
-    "tempo",
-    "tribun",
-  ];
-
   static const String baseUrl = "https://api-berita-indonesia.vercel.app";
 
   static Future<Map<String, dynamic>> get(String partUrl) async {
