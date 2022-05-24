@@ -13,6 +13,21 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  var listNews = [
+    "terbaru",
+    "politik",
+    "hukum",
+    "ekonomi",
+    "bola",
+    "olahraga",
+    "humaniora",
+    "lifestyle",
+    "hiburan",
+    "dunia",
+    "tekno",
+    "otomotif",
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +59,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildDetailCountriesBody() {
     return FutureBuilder(
-      future: CovidDataSource.instance.loadCountries(),
+      future: CovidDataSource.instance.loadCountries(listNews[0]),
       builder: (
         BuildContext context,
         AsyncSnapshot<dynamic> snapshot,
@@ -84,8 +99,8 @@ class _HomePageState extends State<HomePage> {
           key: UniqueKey(),
           onDismissed: (direction) {},
           child: ListTile(
-            title: Text("${data.data?.posts?[index].title}"),
-            subtitle: Text("${data.data?.posts?[index].description}"),
+            title: Text(data.data.posts[index].title),
+            subtitle: Text(data.data.posts[index].description),
           ),
         );
       },

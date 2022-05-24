@@ -1,86 +1,88 @@
-// https://tiendung01023.github.io/json_to_dart/
+// https://app.quicktype.io/
 class BeritaPost {
-  final bool? success;
-  final dynamic message;
-  final Data? data;
-
   BeritaPost({
-    this.success,
+    required this.success,
     this.message,
-    this.data,
+    required this.data,
   });
 
-  BeritaPost.fromJson(Map<String, dynamic> json)
-      : success = json['success'] as bool?,
-        message = json['message'],
-        data = (json['data'] as Map<String, dynamic>?) != null
-            ? Data.fromJson(json['data'] as Map<String, dynamic>)
-            : null;
+  bool success;
+  dynamic message;
+  Data data;
 
-  Map<String, dynamic> toJson() =>
-      {'success': success, 'message': message, 'data': data?.toJson()};
-}
-
-class Data {
-  final String? link;
-  final String? image;
-  final String? description;
-  final String? title;
-  final List<Posts>? posts;
-
-  Data({
-    this.link,
-    this.image,
-    this.description,
-    this.title,
-    this.posts,
-  });
-
-  Data.fromJson(Map<String, dynamic> json)
-      : link = json['link'] as String?,
-        image = json['image'] as String?,
-        description = json['description'] as String?,
-        title = json['title'] as String?,
-        posts = (json['posts'] as List?)
-            ?.map((dynamic e) => Posts.fromJson(e as Map<String, dynamic>))
-            .toList();
+  factory BeritaPost.fromJson(Map<String, dynamic> json) => BeritaPost(
+        success: json["success"],
+        message: json["message"],
+        data: Data.fromJson(json["data"]),
+      );
 
   Map<String, dynamic> toJson() => {
-        'link': link,
-        'image': image,
-        'description': description,
-        'title': title,
-        'posts': posts?.map((e) => e.toJson()).toList()
+        "success": success,
+        "message": message,
+        "data": data.toJson(),
       };
 }
 
-class Posts {
-  final String? link;
-  final String? title;
-  final String? pubDate;
-  final String? description;
-  final String? thumbnail;
-
-  Posts({
-    this.link,
-    this.title,
-    this.pubDate,
-    this.description,
-    this.thumbnail,
+class Data {
+  Data({
+    required this.link,
+    required this.image,
+    required this.description,
+    required this.title,
+    required this.posts,
   });
 
-  Posts.fromJson(Map<String, dynamic> json)
-      : link = json['link'] as String?,
-        title = json['title'] as String?,
-        pubDate = json['pubDate'] as String?,
-        description = json['description'] as String?,
-        thumbnail = json['thumbnail'] as String?;
+  String link;
+  String image;
+  String description;
+  String title;
+  List<Post> posts;
+
+  factory Data.fromJson(Map<String, dynamic> json) => Data(
+        link: json["link"],
+        image: json["image"],
+        description: json["description"],
+        title: json["title"],
+        posts: List<Post>.from(json["posts"].map((x) => Post.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
-        'link': link,
-        'title': title,
-        'pubDate': pubDate,
-        'description': description,
-        'thumbnail': thumbnail
+        "link": link,
+        "image": image,
+        "description": description,
+        "title": title,
+        "posts": List<dynamic>.from(posts.map((x) => x.toJson())),
+      };
+}
+
+class Post {
+  Post({
+    required this.link,
+    required this.title,
+    required this.pubDate,
+    required this.description,
+    required this.thumbnail,
+  });
+
+  String link;
+  String title;
+  DateTime pubDate;
+  String description;
+  String thumbnail;
+
+  factory Post.fromJson(Map<String, dynamic> json) => Post(
+        link: json["link"],
+        title: json["title"],
+        pubDate: DateTime.parse(json["pubDate"]),
+        description: json["description"],
+        thumbnail: json["thumbnail"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "link": link,
+        "title": title,
+        "pubDate": pubDate.toIso8601String(),
+        "description": description,
+        "thumbnail": thumbnail,
       };
 }
