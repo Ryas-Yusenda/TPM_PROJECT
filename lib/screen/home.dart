@@ -53,8 +53,7 @@ class _HomePageState extends State<HomePage> {
           return _buildErrorSection();
         }
         if (snapshot.hasData) {
-          CountriesModel countriesModel =
-              CountriesModel.fromJson(snapshot.data);
+          BeritaPost countriesModel = BeritaPost.fromJson(snapshot.data);
           return _buildSuccessSection(countriesModel);
         }
         return _buildLoadingSection();
@@ -72,16 +71,24 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildSuccessSection(CountriesModel data) {
+  Widget _buildSuccessSection(BeritaPost data) {
     return ListView.builder(
-      itemCount: data.countries?.length,
+      // itemCount: data.countries?.length,
+      // itemCount: data.data.posts?.length,
+      itemCount: 10,
       itemBuilder: (BuildContext context, int index) {
-        return _buildItemCountries("${data.countries?[index].name}");
+        return Dismissible(
+          background: Container(
+            color: kPrimaryColor,
+          ),
+          key: UniqueKey(),
+          onDismissed: (direction) {},
+          child: ListTile(
+            title: Text("${data.data?.posts?[index].title}"),
+            subtitle: Text("${data.data?.posts?[index].description}"),
+          ),
+        );
       },
     );
-  }
-
-  Widget _buildItemCountries(String value) {
-    return Text(value);
   }
 }

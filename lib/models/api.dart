@@ -3,6 +3,6 @@ import 'base_network.dart';
 class CovidDataSource {
   static CovidDataSource instance = CovidDataSource();
   Future<Map<String, dynamic>> loadCountries() {
-    return BaseNetwork.get("antara/terbaru");
+    return BaseNetwork.get("terbaru");
   }
 }
