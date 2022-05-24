@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:news_info/screen/onbording_screnn.dart';
+import 'package:news_info/services/string_extension.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:news_info/constants.dart';
 import 'package:news_info/services/api.dart';
@@ -64,65 +65,71 @@ class _HomePageState extends State<HomePage> {
             )
           ],
         ),
-        // body: _buildDetailCountriesBody(4),
         body: _temaNews(),
         bottomSheet: const BottomSheetMain());
   }
 
   Widget _temaNews() {
-    return SafeArea(
-      child: Column(
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Row(
+    return Column(
+      children: [
+        Expanded(
+          child: Column(
               mainAxisSize: MainAxisSize.max,
-              children: [
-                Expanded(
-                    child: Align(
-                  alignment: const AlignmentDirectional(1, 0),
-                  child: Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 10, 0),
-                    child: TextButton(
-                      onPressed: () {
-                        print('TODO:');
-                      },
-                      style: TextButton.styleFrom(
-                        primary: kPrimaryColor,
-                      ),
-                      child: const Text(
-                        'Lihat Semua',
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          color: kPrimaryColor,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
-                  ),
-                ))
-              ],
-            ),
-            Center(
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    for (var item in listNews) _listTemaBerita(item),
+                    Expanded(
+                        child: Align(
+                      alignment: const AlignmentDirectional(1, 0),
+                      child: Padding(
+                        padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 10, 0),
+                        child: TextButton(
+                          onPressed: () {
+                            print('//TODO: Tambah Menu Untuk Melihat Semua');
+                          },
+                          style: TextButton.styleFrom(
+                            primary: kPrimaryColor,
+                          ),
+                          child: const Text(
+                            'Lihat Semua',
+                            style: TextStyle(
+                              fontFamily: 'Poppins',
+                              color: kPrimaryColor,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ))
                   ],
                 ),
-              ),
-            ),
-          ]),
+                Center(
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        for (var item in listNews) _listTemaBerita(item),
+                      ],
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: _buildDetailCountriesBody(statuslistnews.toLowerCase()),
+                ),
+              ]),
+        ),
+      ],
     );
   }
 
-  Widget _buildDetailCountriesBody(int nomorBerita) {
+  Widget _buildDetailCountriesBody(String namaBerita) {
     return FutureBuilder(
       future: CovidDataSource.instance
-          .loadCountries(listNews[nomorBerita].toLowerCase()),
+          .loadCountries(namaBerita),
       builder: (
         BuildContext context,
         AsyncSnapshot<dynamic> snapshot,
@@ -132,7 +139,7 @@ class _HomePageState extends State<HomePage> {
         }
         if (snapshot.hasData) {
           BeritaPost countriesModel = BeritaPost.fromJson(snapshot.data);
-          return _buildSuccessSection(countriesModel, nomorBerita);
+          return _buildSuccessSection(countriesModel, namaBerita);
         }
         return _buildLoadingSection();
       },
@@ -151,8 +158,6 @@ class _HomePageState extends State<HomePage> {
             setState(() {
               statuslistnews = name;
             });
-
-            print('TODO:' + name);
           },
           child: Text(
             name,
@@ -189,27 +194,21 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildSuccessSection(BeritaPost data, int nomor) {
+  Widget _buildSuccessSection(BeritaPost data, String nama) {
     return ListView.builder(
       itemCount: data.data.posts.length,
       itemBuilder: (BuildContext context, int index) {
-        return Dismissible(
-          background: Container(
-            color: kPrimaryColor,
-          ),
-          key: UniqueKey(),
-          child: _newsInfo(
-            data.data.posts[index].thumbnail,
-            data.data.posts[index].title,
-            data.data.posts[index].description,
-            nomor,
-          ),
+        return _newsInfo(
+          data.data.posts[index].thumbnail,
+          data.data.posts[index].title,
+          data.data.posts[index].description,
+          nama,
         );
       },
     );
   }
 
-  Widget _newsInfo(String image, String title, String detail, int nomorBerita) {
+  Widget _newsInfo(String image, String title, String detail, String namaBerita) {
     return Row(
       mainAxisSize: MainAxisSize.max,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -290,10 +289,12 @@ class _HomePageState extends State<HomePage> {
                       height: 25.0,
                       child: ElevatedButton(
                         onPressed: () {
-                          print('TODO:');
+                          setState(() {
+                            statuslistnews = namaBerita;
+                          });
                         },
                         child: Text(
-                          listNews[nomorBerita],
+                          namaBerita.capitalize(),
                           style: const TextStyle(
                             fontFamily: 'Poppins',
                             color: kPrimaryColor,
@@ -324,4 +325,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-

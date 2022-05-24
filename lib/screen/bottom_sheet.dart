@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:news_info/constants.dart';
 
@@ -9,7 +11,7 @@ class BottomSheetMain extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 90.0,
+      height: 60.0,
       width: double.infinity,
       decoration: const BoxDecoration(
         color: Colors.white,
@@ -40,7 +42,7 @@ class BottomSheetMain extends StatelessWidget {
                 '1',
                 style: TextStyle(
                     color: kPrimaryColor,
-                    fontSize: 34.0,
+                    fontSize: 18.0,
                     fontFamily: 'Roboto',
                     fontWeight: FontWeight.w600),
               ),
@@ -48,7 +50,7 @@ class BottomSheetMain extends StatelessWidget {
                 '1',
                 style: TextStyle(
                     color: kPrimaryColor,
-                    fontSize: 34.0,
+                    fontSize: 18.0,
                     fontFamily: 'Roboto',
                     fontWeight: FontWeight.w600),
               ),
@@ -56,7 +58,7 @@ class BottomSheetMain extends StatelessWidget {
                 '1',
                 style: TextStyle(
                     color: kPrimaryColor,
-                    fontSize: 34.0,
+                    fontSize: 18.0,
                     fontFamily: 'Roboto',
                     fontWeight: FontWeight.w600),
               ),
@@ -64,7 +66,7 @@ class BottomSheetMain extends StatelessWidget {
                 '1',
                 style: TextStyle(
                     color: kPrimaryColor,
-                    fontSize: 34.0,
+                    fontSize: 18.0,
                     fontFamily: 'Roboto',
                     fontWeight: FontWeight.w600),
               ),

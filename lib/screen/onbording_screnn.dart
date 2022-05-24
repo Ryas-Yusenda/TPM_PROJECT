@@ -179,12 +179,12 @@ final List<Onboard> demoData = [
   ),
   Onboard(
     image: "assets/images/undraw_Sharing_articles_re_jnkp.png",
-    title: "Dapatkan berita aktual\n Dari ",
+    title: "Dari sumber yang aktual\n Di ",
     title2: "seluruh Indonesia",
   ),
   Onboard(
     image: "assets/images/undraw_Happy_news_re_tsbd.png",
-    title: "Olahraga, politik,\n Sehat, ",
+    title: "Seputar politik, ekonomi,\n Hiburan, ",
     title2: "& apa saja",
   ),
 ];
