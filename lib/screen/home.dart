@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:news_info/screen/onbording_screnn.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../api/api.dart';
-import '../api/json_to_dart.dart';
+import '../models/api.dart';
+import '../models/json_to_dart.dart';
 import 'package:news_info/constants.dart';
 
 class HomePage extends StatefulWidget {
@@ -26,26 +26,15 @@ class _HomePageState extends State<HomePage> {
               fontWeight: FontWeight.w600),
         ),
         actions: [
-          Padding(
-            padding:
-                const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
-            child: ClipOval(
-              child: Material(
-                color: kPrimaryColor, // Button color
-                child: InkWell(
-                  splashColor: kPrimaryColor.withOpacity(0.4), // Splash color
-                  onTap: () async {
-                    final prefs = await SharedPreferences.getInstance();
-                    prefs.setBool('showHomePage', false);
+          IconButton(
+            icon: const Icon(Icons.logout, color: kPrimaryColor),
+            onPressed: () async {
+              final prefs = await SharedPreferences.getInstance();
+              prefs.setBool('showHomePage', false);
 
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => const OnBordingScreen()));
-                  },
-                  child: const SizedBox(
-                      width: 40, height: 56, child: Icon(Icons.logout)),
-                ),
-              ),
-            ),
+              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (context) => const OnBordingScreen()));
+            },
           )
         ],
       ),
