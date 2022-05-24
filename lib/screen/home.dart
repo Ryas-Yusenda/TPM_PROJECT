@@ -3,13 +3,13 @@
 import 'package:flutter/material.dart';
 import 'package:news_info/screen/all_news.dart';
 import 'package:news_info/screen/onbording_screnn.dart';
+import 'package:news_info/screen/web_view.dart';
 import 'package:news_info/services/string_extension.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:news_info/constants.dart';
 import 'package:news_info/services/api.dart';
 import 'package:news_info/models/news_get.dart';
 import 'package:news_info/screen/bottom_sheet_main.dart';
-import 'dart:math';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -186,6 +186,7 @@ class _HomePageState extends State<HomePage> {
           data.data.posts[index].thumbnail,
           data.data.posts[index].title,
           data.data.posts[index].description,
+          data.data.posts[index].link,
           nama,
         );
       },
@@ -193,7 +194,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _listBeritaBuildSuccessDetail(
-      String image, String title, String detail, String nama) {
+      String image, String title, String detail, String link, String nama) {
     return Row(
       mainAxisSize: MainAxisSize.max,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -209,8 +210,8 @@ class _HomePageState extends State<HomePage> {
             ),
             child: Image.network(
               image,
-              width: 140,
-              height: 140,
+              width: 120,
+              height: 100,
               fit: BoxFit.cover,
             ),
           ),
@@ -222,24 +223,32 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 15, 35),
-                width: 230,
-                child: Column(
-                  children: <Widget>[
-                    Text(
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 2,
-                      title,
-                      textAlign: TextAlign.left,
-                      style: const TextStyle(
-                        fontFamily: 'Poppins',
-                        color: kSecondaryColor,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                        builder: (context) => WebViewModul(links: link)),
+                  );
+                }, // Respon ketika button ditekan
+                child: Container(
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 15, 20),
+                  width: 235,
+                  child: Column(
+                    children: <Widget>[
+                      Text(
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                        title,
+                        textAlign: TextAlign.left,
+                        style: const TextStyle(
+                          fontFamily: 'Poppins',
+                          color: kSecondaryColor,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
               Row(

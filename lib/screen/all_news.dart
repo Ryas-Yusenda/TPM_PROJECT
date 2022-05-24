@@ -11,16 +11,11 @@ class AllNews extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
+        elevation: 4,
+        backgroundColor: kPrimaryColor,
         iconTheme: const IconThemeData(
-          color: kPrimaryColor, //change your color here
-        ),
-        title: const Text(
-          'Berita',
-          style: TextStyle(
-              color: kSecondaryColor,
-              fontSize: 28.0,
-              fontFamily: 'Roboto',
-              fontWeight: FontWeight.w600),
+          color: Colors.white, //change your color here
         ),
       ),
       body: Column(
@@ -30,8 +25,8 @@ class AllNews extends StatelessWidget {
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  for (var item in listNews) 
-                   _listBeritaBuild(item.toLowerCase()),
+                  for (var item in listNews)
+                    _listBeritaBuild(item.toLowerCase()),
                 ]),
           ),
         ],
