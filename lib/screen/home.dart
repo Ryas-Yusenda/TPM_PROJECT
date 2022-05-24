@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:news_info/screen/onbording_screnn.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../models/api.dart';
-import '../models/json_to_dart.dart';
+import '../services/api.dart';
+import '../models/newsGet.dart';
 import 'package:news_info/constants.dart';
 
 class HomePage extends StatefulWidget {
