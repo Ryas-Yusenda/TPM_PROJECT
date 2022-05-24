@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
@@ -17,10 +19,10 @@ class BaseNetwork {
     "tribun",
   ];
 
-  static const String baseUrl = "https://api-berita-indonesia.vercel.app/";
+  static const String baseUrl = "https://api-berita-indonesia.vercel.app";
 
   static Future<Map<String, dynamic>> get(String partUrl) async {
-    final String fullUrl = baseUrl + "/" + listSource[11] + "/" + partUrl;
+    final String fullUrl = baseUrl + "/" + listSource[0] + "/" + partUrl;
     debugPrint("BaseNetwork - fullUrl : $fullUrl");
     final response = await http.get(Uri.parse(fullUrl));
     debugPrint("BaseNetwork - response : ${response.body}");
