@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:news_info/screen/onbording_screnn.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../services/api.dart';
-import '../models/newsGet.dart';
 import 'package:news_info/constants.dart';
+import 'package:news_info/services/api.dart';
+import 'package:news_info/models/newsGet.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
