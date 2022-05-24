@@ -32,18 +32,18 @@ List<String> listNews = [
 ];
 
 List<String> listSource = [
-  "antara",
-  "cnbc",
-  "cnn",
-  "jpnn",
-  "kumparan",
-  "merdeka",
-  "okezone",
-  "republika",
-  "sindonews",
-  "suara",
-  "tempo",
-  "tribun",
+  "Antara",
+  "CNBC",
+  "CNN",
+  "JPNN",
+  "Kumparan",
+  "Merdeka",
+  "Okezone",
+  "Republika",
+  "Sindonews",
+  "Suara",
+  "Tempo",
+  "Tribun",
 ];
 
 List<String> listThumbnail = [

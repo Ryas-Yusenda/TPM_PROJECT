@@ -35,14 +35,10 @@ class _HomePageState extends State<HomePage> {
           ),
           actions: [
             IconButton(
-              icon: const Icon(Icons.logout, color: kPrimaryColor),
-              onPressed: () async {
-                final prefs = await SharedPreferences.getInstance();
-                prefs.setBool('showHomePage', false);
-
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => const OnBordingScreen()));
-              },
+              icon: const Icon(Icons.refresh, color: kPrimaryColor),
+              onPressed: () => setState(() {
+                statuslistnews = statuslistnews;
+              }),
             )
           ],
         ),
