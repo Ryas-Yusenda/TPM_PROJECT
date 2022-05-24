@@ -1,159 +1,40 @@
-// ignore_for_file: unused_element, unused_import, avoid_print
-
 import 'package:flutter/material.dart';
-import 'package:news_info/screen/all_news.dart';
-import 'package:news_info/screen/onbording_screnn.dart';
-import 'package:news_info/services/string_extension.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:news_info/constants.dart';
-import 'package:news_info/services/api.dart';
 import 'package:news_info/models/news_get.dart';
-import 'package:news_info/screen/bottom_sheet_main.dart';
-import 'dart:math';
+import 'package:news_info/services/api.dart';
+import 'package:news_info/services/string_extension.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  var statuslistnews = 'Politik';
+class AllNews extends StatelessWidget {
+  const AllNews({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            'Berita',
-            style: TextStyle(
-                color: kSecondaryColor,
-                fontSize: 28.0,
-                fontFamily: 'Roboto',
-                fontWeight: FontWeight.w600),
-          ),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.logout, color: kPrimaryColor),
-              onPressed: () async {
-                final prefs = await SharedPreferences.getInstance();
-                prefs.setBool('showHomePage', false);
-
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => const OnBordingScreen()));
-              },
-            )
-          ],
+      appBar: AppBar(
+        iconTheme: const IconThemeData(
+          color: kPrimaryColor, //change your color here
         ),
-        body: _main(),
-        bottomSheet: const BottomSheetMain());
-  }
-
-  Widget _main() {
-    return Column(
-      children: [
-        Expanded(
-          child: Column(
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                _cariLihatsemua(),
-                _listTemaBuild(),
-                _listBeritaBuild(statuslistnews.toLowerCase()),
-              ]),
-        ),
-      ],
-    );
-  }
-
-  Widget _cariLihatsemua() {
-    return Row(
-      mainAxisSize: MainAxisSize.max,
-      children: [
-        Expanded(
-            child: Align(
-          alignment: const AlignmentDirectional(1, 0),
-          child: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 10, 0),
-            child: TextButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const AllNews()),
-                );
-                print('//TODO: Tambah Menu Untuk Melihat Semua');
-              },
-              style: TextButton.styleFrom(
-                primary: kPrimaryColor,
-              ),
-              child: const Text(
-                'Lihat Semua',
-                style: TextStyle(
-                  fontFamily: 'Poppins',
-                  color: kPrimaryColor,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
-          ),
-        ))
-      ],
-    );
-  }
-
-  Widget _listTemaBuild() {
-    return Center(
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            for (var item in listNews) _listTemaBuildBerita(item),
-          ],
+        title: const Text(
+          'Berita',
+          style: TextStyle(
+              color: kSecondaryColor,
+              fontSize: 28.0,
+              fontFamily: 'Roboto',
+              fontWeight: FontWeight.w600),
         ),
       ),
-    );
-  }
-
-  Widget _listTemaBuildBerita(String name) {
-    return Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 12),
-      child: SizedBox(
-        width: 130.0,
-        height: 32.0,
-        child: ElevatedButton(
-          autofocus: true,
-          onPressed: () {
-            setState(() {
-              statuslistnews = name;
-            });
-          },
-          child: Text(
-            name,
-            style: TextStyle(
-              fontFamily: 'Poppins',
-              color: warnaListNews(statuslistnews, name)
-                  ? Colors.white
-                  : kPrimaryColor,
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
-            ),
+      body: Column(
+        children: [
+          Expanded(
+            child: Column(
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  for (var item in listNews) 
+                   _listBeritaBuild(item.toLowerCase()),
+                ]),
           ),
-          style: ElevatedButton.styleFrom(
-            primary: warnaListNews(statuslistnews, name)
-                ? kPrimaryColor
-                : Colors.white,
-            shadowColor: kSecondaryColor,
-            side: const BorderSide(
-              color: kPrimaryColor,
-              width: 2,
-            ),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12.0),
-            ),
-          ),
-        ),
+        ],
       ),
     );
   }
@@ -261,15 +142,15 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                     child: Image.network(
-                      listThumbnail[2],
                       fit: BoxFit.contain,
+                      listThumbnail[2],
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                  const Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                     child: Text(
-                      listSource[2],
-                      style: const TextStyle(
+                      'CNN',
+                      style: TextStyle(
                         fontFamily: 'Poppins',
                         color: kSecondaryColor,
                         fontSize: 14,
@@ -282,11 +163,7 @@ class _HomePageState extends State<HomePage> {
                     child: SizedBox(
                       height: 25.0,
                       child: ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            statuslistnews = nama;
-                          });
-                        },
+                        onPressed: () {},
                         child: Text(
                           nama.capitalize(),
                           style: const TextStyle(

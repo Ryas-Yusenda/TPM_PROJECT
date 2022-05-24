@@ -1,8 +1,8 @@
 import 'base_network.dart';
 
-class CovidDataSource {
-  static CovidDataSource instance = CovidDataSource();
-  Future<Map<String, dynamic>> loadCountries(path) {
+class NewsDataSource {
+  static NewsDataSource instance = NewsDataSource();
+  Future<Map<String, dynamic>> loadNews(path) {
     return BaseNetwork.get(path);
   }
 }
