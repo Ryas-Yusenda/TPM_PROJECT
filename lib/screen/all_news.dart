@@ -6,7 +6,9 @@ import 'package:news_info/services/api.dart';
 import 'package:news_info/services/string_extension.dart';
 
 class AllNews extends StatelessWidget {
-  const AllNews({Key? key}) : super(key: key);
+  AllNews({Key? key}) : super(key: key);
+
+  int data = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -19,24 +21,35 @@ class AllNews extends StatelessWidget {
           color: Colors.white, //change your color here
         ),
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: Column(
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  for (var item in listNews)
-                    _listBeritaBuild(item.toLowerCase()),
-                ]),
-          ),
-        ],
+      body: Column(children: [
+        _listBeritaBuild1('politik'),
+        _listBeritaBuild2('hukum'),
+      ]),
+    );
+  }
+
+  Widget _listBeritaBuild1(String namaBerita) {
+    return Expanded(
+      flex: 1,
+      child: FutureBuilder(
+        future: NewsDataSource.instance.loadNews(namaBerita),
+        builder: (
+          BuildContext context,
+          AsyncSnapshot<dynamic> snapshot,
+        ) {
+          if (snapshot.hasData) {
+            BeritaPost countriesModel = BeritaPost.fromJson(snapshot.data);
+            return _listBeritaBuildSuccess(countriesModel, namaBerita);
+          }
+          return _listBeritaBuildLoading();
+        },
       ),
     );
   }
 
-  Widget _listBeritaBuild(String namaBerita) {
+  Widget _listBeritaBuild2(String namaBerita) {
     return Expanded(
+      flex: 2,
       child: FutureBuilder(
         future: NewsDataSource.instance.loadNews(namaBerita),
         builder: (
@@ -75,8 +88,8 @@ class AllNews extends StatelessWidget {
     );
   }
 
-  Widget _listBeritaBuildSuccessDetail(
-      BuildContext context, String image, String title, String detail, String link, String nama) {
+  Widget _listBeritaBuildSuccessDetail(BuildContext context, String image,
+      String title, String detail, String link, String nama) {
     return Row(
       mainAxisSize: MainAxisSize.max,
       crossAxisAlignment: CrossAxisAlignment.center,

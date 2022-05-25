@@ -19,17 +19,14 @@ bool warnaListNews(String data1, String data2) {
 }
 
 List<String> listNews = [
-  "Politik",
-  "Hukum",
-  "Ekonomi",
-  "Bola",
+  "terbaru",
+  "nasional",
+  "internasional",
+  "ekonomi",
   "Olahraga",
-  "Humaniora",
-  "Lifestyle",
+  "teknologi",
   "Hiburan",
-  "Dunia",
-  "Tekno",
-  "Otomotif",
+  "gayaHidup",
 ];
 
 List<String> listSource = [

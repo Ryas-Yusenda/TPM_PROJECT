@@ -19,14 +19,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  var statuslistnews = 'Politik';
+  var statuslistnews = 'Terbaru';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: const Text(
-            'Berita',
+            'CNN',
             style: TextStyle(
                 color: kSecondaryColor,
                 fontSize: 28.0,
@@ -106,7 +106,7 @@ class _HomePageState extends State<HomePage> {
             child: TextButton(
               onPressed: () {
                 Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const AllNews()),
+                  MaterialPageRoute(builder: (context) => AllNews()),
                 );
                 print('//TODO: Tambah Menu Untuk Melihat Semua');
               },
@@ -157,7 +157,7 @@ class _HomePageState extends State<HomePage> {
             });
           },
           child: Text(
-            name,
+            name.capitalize(),
             style: TextStyle(
               fontFamily: 'Poppins',
               color: warnaListNews(statuslistnews, name)

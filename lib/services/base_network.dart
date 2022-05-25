@@ -8,7 +8,10 @@ class BaseNetwork {
   static const String baseUrl = "https://api-berita-indonesia.vercel.app";
 
   static Future<Map<String, dynamic>> get(String partUrl) async {
-    final String fullUrl = baseUrl + "/" + listSource[0] + "/" + partUrl;
+    String fullUrl = baseUrl + "/" + listSource[2] + "/" + partUrl;
+    if (partUrl == 'terbaru') {
+      // fullUrl = "http://127.0.0.1:5000/terbaru";
+    }
     debugPrint("BaseNetwork - fullUrl : $fullUrl");
     final response = await http.get(Uri.parse(fullUrl));
     debugPrint("BaseNetwork - response : ${response.body}");
