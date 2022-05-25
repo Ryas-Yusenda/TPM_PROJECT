@@ -65,8 +65,39 @@ class _HomePageState extends State<HomePage> {
 
   Widget _cariLihatsemua() {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       mainAxisSize: MainAxisSize.max,
       children: [
+        Padding(
+          padding: const EdgeInsetsDirectional.fromSTEB(10, 30, 10, 20),
+          child: SizedBox(
+            height: 35.0,
+            width: 300.0,
+            child: ElevatedButton.icon(
+              label: const Text(
+                'Cari',
+                style: TextStyle(color: Colors.grey),
+              ),
+              icon: const Icon(
+                Icons.search,
+                color: Colors.grey,
+                size: 24.0,
+              ),
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                primary: const Color.fromARGB(255, 240, 238, 238),
+                shadowColor: kSecondaryColor,
+                side: const BorderSide(
+                  color: Colors.white,
+                  width: 1,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
+              ),
+            ),
+          ),
+        ),
         Expanded(
             child: Align(
           alignment: const AlignmentDirectional(1, 0),
@@ -83,7 +114,7 @@ class _HomePageState extends State<HomePage> {
                 primary: kPrimaryColor,
               ),
               child: const Text(
-                'Lihat Semua',
+                'Semua',
                 style: TextStyle(
                   fontFamily: 'Poppins',
                   color: kPrimaryColor,
@@ -93,7 +124,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-        ))
+        )),
       ],
     );
   }
@@ -251,71 +282,76 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Container(
-                    width: 25,
-                    height: 25,
-                    clipBehavior: Clip.antiAlias,
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(color: kSecondaryColor, spreadRadius: 1),
-                      ],
-                    ),
-                    child: Image.network(
-                      listThumbnail[2],
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-                    child: Text(
-                      listSource[2],
-                      style: const TextStyle(
-                        fontFamily: 'Poppins',
-                        color: kSecondaryColor,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Container(
+                      width: 25,
+                      height: 25,
+                      clipBehavior: Clip.antiAlias,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(color: kSecondaryColor50, spreadRadius: 1),
+                        ],
+                      ),
+                      child: Image.network(
+                        listThumbnail[2],
+                        fit: BoxFit.contain,
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-                    child: SizedBox(
-                      height: 25.0,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            statuslistnews = nama;
-                          });
-                        },
-                        child: Text(
-                          nama.capitalize(),
-                          style: const TextStyle(
-                            fontFamily: 'Poppins',
-                            color: kPrimaryColor,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.white,
-                          shadowColor: kSecondaryColor,
-                          side: const BorderSide(
-                            color: kPrimaryColor,
-                            width: 1,
-                          ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12.0),
-                          ),
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                      child: Text(
+                        listSource[2],
+                        style: const TextStyle(
+                          fontFamily: 'Poppins',
+                          color: kSecondaryColor,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
                     ),
-                  ),
-                ],
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                      child: SizedBox(
+                        height: 25.0,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              statuslistnews = nama;
+                            });
+                          },
+                          child: Text(
+                            nama.capitalize(),
+                            style: const TextStyle(
+                              fontFamily: 'Poppins',
+                              color: kPrimaryColor,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.white,
+                            shadowColor: kSecondaryColor,
+                            side: const BorderSide(
+                              color: kPrimaryColor,
+                              width: 1,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

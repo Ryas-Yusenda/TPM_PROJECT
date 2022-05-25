@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 const kPrimaryColor = Color.fromRGBO(255, 104, 97, 1);
 const kSecondaryColor = Color.fromRGBO(47, 46, 65, 1);
+const kSecondaryColor50 = Color.fromARGB(127, 47, 46, 65);
 const kThirdColor = Color.fromRGBO(255, 255, 255, 1);
 
 const kPrimaryGradient = LinearGradient(

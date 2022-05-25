@@ -1,3 +1,4 @@
+import 'package:news_info/constants.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +16,7 @@ class _WebViewState extends State<WebViewModul> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: const Color.fromARGB(255, 238, 10, 10),
+          backgroundColor: kPrimaryColor,
           automaticallyImplyLeading: true,
           actions: const [],
           centerTitle: true,
