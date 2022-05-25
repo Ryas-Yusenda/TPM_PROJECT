@@ -9,9 +9,6 @@ class BaseNetwork {
 
   static Future<Map<String, dynamic>> get(String partUrl) async {
     String fullUrl = baseUrl + "/" + listSource[2] + "/" + partUrl;
-    if (partUrl == 'terbaru') {
-      // fullUrl = "http://127.0.0.1:5000/terbaru";
-    }
     debugPrint("BaseNetwork - fullUrl : $fullUrl");
     final response = await http.get(Uri.parse(fullUrl));
     debugPrint("BaseNetwork - response : ${response.body}");

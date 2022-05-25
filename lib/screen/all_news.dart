@@ -159,7 +159,7 @@ class AllNews extends StatelessWidget {
                         shape: BoxShape.circle,
                         color: Colors.white,
                         boxShadow: [
-                          BoxShadow(color: kSecondaryColor50, spreadRadius: 1),
+                          BoxShadow(color: kSecondaryColor, spreadRadius: 1),
                         ],
                       ),
                       child: Image.network(

@@ -9,7 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:news_info/constants.dart';
 import 'package:news_info/services/api.dart';
 import 'package:news_info/models/news_get.dart';
-import 'package:news_info/screen/bottom_sheet_main.dart';
+import 'dart:math';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -20,30 +20,77 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   var statuslistnews = 'Terbaru';
+  int _selectedIndex = 0;
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            'CNN',
-            style: TextStyle(
-                color: kSecondaryColor,
-                fontSize: 28.0,
-                fontFamily: 'Roboto',
-                fontWeight: FontWeight.w600),
-          ),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.refresh, color: kPrimaryColor),
-              onPressed: () => setState(() {
-                statuslistnews = statuslistnews;
-              }),
-            )
-          ],
+      appBar: AppBar(
+        title: const Text(
+          'CNN',
+          style: TextStyle(
+              color: kSecondaryColor,
+              fontSize: 28.0,
+              fontFamily: 'Roboto',
+              fontWeight: FontWeight.w600),
         ),
-        body: _main(),
-        bottomSheet: const BottomSheetMain());
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.refresh, color: kPrimaryColor),
+            onPressed: () => setState(() {
+              statuslistnews = statuslistnews;
+            }),
+          )
+        ],
+      ),
+      body: _main(),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+              icon: Padding(
+                padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                child: Icon(
+                  Icons.home,
+                  size: 25,
+                ),
+              ),
+              label: '',
+              backgroundColor: kSecondaryColor),
+          BottomNavigationBarItem(
+              icon: Padding(
+                padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                child: Icon(
+                  Icons.search,
+                  size: 25,
+                ),
+              ),
+              label: '',
+              backgroundColor: kSecondaryColor),
+          BottomNavigationBarItem(
+            icon: Padding(
+              padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+              child: Icon(
+                Icons.person,
+                size: 25,
+              ),
+            ),
+            label: '',
+            backgroundColor: kSecondaryColor,
+          ),
+        ],
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: kSecondaryColor,
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.white,
+        unselectedItemColor: kPrimaryColor,
+        onTap: _onItemTapped,
+      ),
+    );
   }
 
   Widget _main() {
@@ -72,7 +119,7 @@ class _HomePageState extends State<HomePage> {
           padding: const EdgeInsetsDirectional.fromSTEB(10, 30, 10, 20),
           child: SizedBox(
             height: 35.0,
-            width: 300.0,
+            width: 270.0,
             child: ElevatedButton.icon(
               label: const Text(
                 'Cari',
@@ -226,6 +273,12 @@ class _HomePageState extends State<HomePage> {
 
   Widget _listBeritaBuildSuccessDetail(
       String image, String title, String detail, String link, String nama) {
+    int randomNumber = Random().nextInt(7) + 1;
+
+    if (nama == 'terbaru') {
+      nama = listNews[randomNumber];
+    }
+
     return Row(
       mainAxisSize: MainAxisSize.max,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -241,7 +294,7 @@ class _HomePageState extends State<HomePage> {
             ),
             child: Image.network(
               image,
-              width: 120,
+              width: 100,
               height: 100,
               fit: BoxFit.cover,
             ),
@@ -263,7 +316,7 @@ class _HomePageState extends State<HomePage> {
                 }, // Respon ketika button ditekan
                 child: Container(
                   padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 15, 20),
-                  width: 235,
+                  width: 200,
                   child: Column(
                     children: <Widget>[
                       Text(
@@ -295,7 +348,7 @@ class _HomePageState extends State<HomePage> {
                         shape: BoxShape.circle,
                         color: Colors.white,
                         boxShadow: [
-                          BoxShadow(color: kSecondaryColor50, spreadRadius: 1),
+                          BoxShadow(color: Colors.white, spreadRadius: 1),
                         ],
                       ),
                       child: Image.network(

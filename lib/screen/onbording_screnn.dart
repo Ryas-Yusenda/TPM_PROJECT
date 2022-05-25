@@ -31,27 +31,28 @@ class _OnBordingScreenState extends State<OnBordingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              Expanded(
-                child: PageView.builder(
-                    itemCount: demoData.length,
-                    controller: _pageController,
-                    onPageChanged: (index) {
-                      setState(() {
-                        _pageIndex = index;
-                      });
-                    },
-                    itemBuilder: (context, index) => OnboardContent(
-                          image: demoData[index].image,
-                          title: demoData[index].title,
-                          title2: demoData[index].title2,
-                        )),
-              ),
-              Row(
+        child: Column(
+          children: [
+            Expanded(
+              child: PageView.builder(
+                  itemCount: demoData.length,
+                  controller: _pageController,
+                  onPageChanged: (index) {
+                    setState(() {
+                      _pageIndex = index;
+                    });
+                  },
+                  itemBuilder: (context, index) => OnboardContent(
+                        image: demoData[index].image,
+                        title: demoData[index].title,
+                        title2: demoData[index].title2,
+                      )),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Row(
                 children: [
                   ...List.generate(
                       demoData.length,
@@ -83,9 +84,9 @@ class _OnBordingScreenState extends State<OnBordingScreen> {
                   ),
                 ],
               ),
-              const SizedBox(height: 16),
-            ],
-          ),
+            ),
+            const SizedBox(height: 16),
+          ],
         ),
       ),
       bottomSheet: _pageIndex == 2
@@ -117,20 +118,14 @@ class _OnBordingScreenState extends State<OnBordingScreen> {
                     MaterialPageRoute(builder: (context) => const HomePage()),
                   );
                 },
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const <Widget>[
-                      Text(
-                        'Mulai',
-                        style: TextStyle(
-                            color: kPrimaryColor,
-                            fontSize: 34.0,
-                            fontFamily: 'Roboto',
-                            fontWeight: FontWeight.w600),
-                      ),
-                    ],
+                child: const Center(
+                  child: Text(
+                    'Mulai',
+                    style: TextStyle(
+                        color: kPrimaryColor,
+                        fontSize: 34.0,
+                        fontFamily: 'Roboto',
+                        fontWeight: FontWeight.w600),
                   ),
                 ),
               ),
