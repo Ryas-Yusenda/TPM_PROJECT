@@ -4,7 +4,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class BaseNetwork {
-  static const String baseUrl = "https://berita-tugas.herokuapp.com/search/?q=";
+  // static const String baseUrl = "https://berita-tugas.herokuapp.com/search/?q=";
+  static const String baseUrl = "https://berita-tugas.herokuapp.com/";
 
   static Future<Map<String, dynamic>> get(String partUrl) async {
     final String fullUrl = baseUrl + partUrl;

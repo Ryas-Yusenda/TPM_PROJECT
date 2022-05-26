@@ -3,7 +3,6 @@ import 'package:news_info/constants.dart';
 import 'package:news_info/models/cari_berita.dart';
 import 'package:news_info/screen/web_view.dart';
 import 'package:news_info/services/api_seach.dart';
-import 'package:news_info/services/string_extension.dart';
 
 class Seacher extends StatelessWidget {
   final String kataKunci;
@@ -40,7 +39,7 @@ class Seacher extends StatelessWidget {
   Widget _listBeritaBuild(String namaBerita) {
     return Expanded(
       child: FutureBuilder(
-        future: CovidDataSource.loadCountries(namaBerita),
+        future: CovidDataSource.loadCountries("search/?q=" + namaBerita),
         builder: (
           BuildContext context,
           AsyncSnapshot<dynamic> snapshot,
@@ -176,7 +175,7 @@ class Seacher extends StatelessWidget {
                         height: 25.0,
                         child: ElevatedButton(
                           child: Text(
-                            tipe!.capitalize(),
+                            tipe!,
                             style: const TextStyle(
                               fontFamily: 'Poppins',
                               color: kPrimaryColor,
