@@ -91,7 +91,7 @@ class _OnBordingScreenState extends State<OnBordingScreen> {
       ),
       bottomSheet: _pageIndex == 2
           ? Container(
-              height: 90.0,
+              height: 130.0,
               width: double.infinity,
               decoration: const BoxDecoration(
                 color: Colors.white,
@@ -118,15 +118,18 @@ class _OnBordingScreenState extends State<OnBordingScreen> {
                     MaterialPageRoute(builder: (context) => const HomePage()),
                   );
                 },
-                child: const Center(
-                  child: Text(
-                    'Mulai',
-                    style: TextStyle(
-                        color: kPrimaryColor,
-                        fontSize: 34.0,
-                        fontFamily: 'Roboto',
-                        fontWeight: FontWeight.w600),
-                  ),
+                child: Column(
+                  children: const [
+                    SizedBox(height: 20),
+                    Text(
+                      'Mulai',
+                      style: TextStyle(
+                          color: kPrimaryColor,
+                          fontSize: 34.0,
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.w600),
+                    ),
+                  ],
                 ),
               ),
             )

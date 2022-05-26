@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_info/screen/all_news.dart';
 import 'package:news_info/screen/onbording_screnn.dart';
+import 'package:news_info/screen/seach.dart';
 import 'package:news_info/screen/web_view.dart';
 import 'package:news_info/services/string_extension.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -21,6 +22,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   var statuslistnews = 'Terbaru';
   int _selectedIndex = 0;
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -49,6 +51,7 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: _main(),
+      // body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -95,19 +98,13 @@ class _HomePageState extends State<HomePage> {
 
   Widget _main() {
     return Column(
-      children: [
-        Expanded(
-          child: Column(
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                _cariLihatsemua(),
-                _listTemaBuild(),
-                _listBeritaBuild(statuslistnews.toLowerCase()),
-              ]),
-        ),
-      ],
-    );
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          _cariLihatsemua(),
+          _listTemaBuild(),
+          _listBeritaBuild(statuslistnews.toLowerCase()),
+        ]);
   }
 
   Widget _cariLihatsemua() {
@@ -115,36 +112,7 @@ class _HomePageState extends State<HomePage> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       mainAxisSize: MainAxisSize.max,
       children: [
-        Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(10, 30, 10, 20),
-          child: SizedBox(
-            height: 35.0,
-            width: 270.0,
-            child: ElevatedButton.icon(
-              label: const Text(
-                'Cari',
-                style: TextStyle(color: Colors.grey),
-              ),
-              icon: const Icon(
-                Icons.search,
-                color: Colors.grey,
-                size: 24.0,
-              ),
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                primary: const Color.fromARGB(255, 240, 238, 238),
-                shadowColor: kSecondaryColor,
-                side: const BorderSide(
-                  color: Colors.white,
-                  width: 1,
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12.0),
-                ),
-              ),
-            ),
-          ),
-        ),
+        const _CariForm(),
         Expanded(
             child: Align(
           alignment: const AlignmentDirectional(1, 0),
@@ -153,7 +121,7 @@ class _HomePageState extends State<HomePage> {
             child: TextButton(
               onPressed: () {
                 Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => AllNews()),
+                  MaterialPageRoute(builder: (context) => const AllNews()),
                 );
                 print('//TODO: Tambah Menu Untuk Melihat Semua');
               },
@@ -410,6 +378,46 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ],
+    );
+  }
+}
+
+@immutable
+class _CariForm extends StatelessWidget {
+  const _CariForm({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    String kata = "";
+
+    return Padding(
+      padding: const EdgeInsetsDirectional.fromSTEB(10, 30, 10, 20),
+      child: SizedBox(
+        height: 35.0,
+        width: 320.0,
+        child: TextFormField(
+          decoration: InputDecoration(
+            icon: IconButton(
+                icon: const Icon(Icons.search),
+                tooltip: 'Increase volume by 10',
+                onPressed: () => {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return Seacher(
+                          kataKunci: kata,
+                        );
+                      })),
+                    }),
+            hintText: '...',
+          ),
+          onSaved: (String? value) {},
+          onChanged: (value) {
+            kata = value;
+          },
+        ),
+      ),
     );
   }
 }

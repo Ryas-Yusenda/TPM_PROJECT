@@ -6,9 +6,9 @@ import 'package:news_info/services/api.dart';
 import 'package:news_info/services/string_extension.dart';
 
 class AllNews extends StatelessWidget {
-  AllNews({Key? key}) : super(key: key);
+  const AllNews({Key? key}) : super(key: key);
 
-  int data = 0;
+  final int data = 0;
 
   @override
   Widget build(BuildContext context) {

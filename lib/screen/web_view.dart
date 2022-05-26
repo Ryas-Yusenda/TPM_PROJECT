@@ -30,7 +30,13 @@ class _WebViewState extends State<WebViewModul> {
       onProgress: (url) {
         {
           controller.evaluateJavascript(
-              "document.getElementsByTagName('footer')[0].style.display='none';");
+              "document.getElementById('parallax1').style.display='none';");
+          controller.evaluateJavascript(
+              "document.getElementById('impulseadcontainer').style.display='none';");
+          controller.evaluateJavascript(
+              "document.getElementById('_forkInArticleAdContainer').style.display='none';");
+          controller.evaluateJavascript(
+              "document.getElementById('animation_container').style.display='none';");
           controller.evaluateJavascript(
               "document.getElementsByTagName('header')[0].style.display='none';");
           controller.evaluateJavascript(
@@ -71,7 +77,20 @@ class _WebViewState extends State<WebViewModul> {
               "document.getElementsByClassName('linksisip')[1].style.display='none';");
           controller.evaluateJavascript(
               "getElementByXpath('/html/body/main/article/div[15]').style.display='none';");
-          controller.evaluateJavascript("");
+          controller.evaluateJavascript(
+              "var appBanners = document.getElementsByTagName('iframe');");
+          controller.evaluateJavascript(
+              "for (var i = 0; i < appBanners.length; i ++) {appBanners[i].style.display = 'none';}");
+          controller.evaluateJavascript(
+              "var appBanners = document.getElementsByTagName('table');");
+          controller.evaluateJavascript(
+              "for (var i = 0; i < appBanners.length; i ++) {appBanners[i].style.display = 'none';}");
+          controller.evaluateJavascript(
+              "var appBanners = document.getElementsByTagName('video');");
+          controller.evaluateJavascript(
+              "for (var i = 0; i < appBanners.length; i ++) {appBanners[i].style.display = 'none';}");
+          controller.evaluateJavascript(
+              "document.getElementsByTagName('footer')[0].style.display='none';");
           controller.evaluateJavascript("");
           controller.evaluateJavascript("");
         }
