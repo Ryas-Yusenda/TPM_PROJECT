@@ -64,14 +64,14 @@ class Seacher extends StatelessWidget {
 
   Widget _listBeritaBuildSuccess(CountriesModel data) {
     return ListView.builder(
-      itemCount: data.countries?.length,
+      itemCount: data.countries.length,
       itemBuilder: (BuildContext context, int index) {
         return _listBeritaBuildSuccessDetail(
           context,
-          data.countries?[index].judul,
-          data.countries?[index].link,
-          data.countries?[index].poster,
-          data.countries?[index].tipe,
+          data.countries[index].judul,
+          data.countries[index].link,
+          data.countries[index].poster,
+          data.countries[index].tipe,
         );
       },
     );

@@ -1,16 +1,17 @@
 // ignore_for_file: unused_element, unused_import, avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:news_info/models/cari_berita.dart';
 import 'package:news_info/screen/all_news.dart';
 import 'package:news_info/screen/onbording_screnn.dart';
 import 'package:news_info/screen/seach.dart';
 import 'package:news_info/screen/web_view.dart';
+import 'package:news_info/services/api_seach.dart';
 import 'package:news_info/services/string_extension.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:news_info/constants.dart';
 import 'package:news_info/services/api.dart';
 import 'package:news_info/models/news_get.dart';
-import 'dart:math';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -97,14 +98,25 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _main() {
-    return Column(
-        mainAxisSize: MainAxisSize.max,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          _cariLihatsemua(),
-          _listTemaBuild(),
-          _listBeritaBuild(statuslistnews.toLowerCase()),
-        ]);
+    if (statuslistnews == 'terbaru') {
+      return Column(
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            _cariLihatsemua(),
+            _listTemaBuild(),
+            _listBeritaBuilds(statuslistnews.toLowerCase()),
+          ]);
+    } else {
+      return Column(
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            _cariLihatsemua(),
+            _listTemaBuild(),
+            _listBeritaBuild(statuslistnews.toLowerCase()),
+          ]);
+    }
   }
 
   Widget _cariLihatsemua() {
@@ -241,12 +253,6 @@ class _HomePageState extends State<HomePage> {
 
   Widget _listBeritaBuildSuccessDetail(
       String image, String title, String detail, String link, String nama) {
-    int randomNumber = Random().nextInt(7) + 1;
-
-    if (nama == 'terbaru') {
-      nama = listNews[randomNumber];
-    }
-
     return Row(
       mainAxisSize: MainAxisSize.max,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -350,6 +356,176 @@ class _HomePageState extends State<HomePage> {
                           },
                           child: Text(
                             nama.capitalize(),
+                            style: const TextStyle(
+                              fontFamily: 'Poppins',
+                              color: kPrimaryColor,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.white,
+                            shadowColor: kSecondaryColor,
+                            side: const BorderSide(
+                              color: kPrimaryColor,
+                              width: 1,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _listBeritaBuilds(String namaBerita) {
+    return Expanded(
+      child: FutureBuilder(
+        future: CovidDataSource.instance.loadCountries(),
+        builder: (
+          BuildContext context,
+          AsyncSnapshot<dynamic> snapshot,
+        ) {
+          if (snapshot.hasData) {
+            CountriesModel countriesModel =
+                CountriesModel.fromJson(snapshot.data);
+            return _listBeritaBuildSuccesss(countriesModel);
+          }
+          return _listBeritaBuildLoading();
+        },
+      ),
+    );
+  }
+
+  Widget _listBeritaBuildSuccesss(CountriesModel data) {
+    return ListView.builder(
+      itemCount: data.countries.length,
+      itemBuilder: (BuildContext context, int index) {
+        return _listBeritaBuildSuccessDetails(
+          context,
+          data.countries[index].judul,
+          data.countries[index].link,
+          data.countries[index].poster,
+          data.countries[index].tipe,
+        );
+      },
+    );
+  }
+
+  Widget _listBeritaBuildSuccessDetails(BuildContext context, String title,
+      String link, String image, String tipe) {
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Padding(
+          padding: const EdgeInsetsDirectional.fromSTEB(15, 10, 10, 10),
+          child: ClipRRect(
+            borderRadius: const BorderRadius.only(
+              bottomLeft: Radius.circular(12),
+              bottomRight: Radius.circular(0),
+              topLeft: Radius.circular(12),
+              topRight: Radius.circular(0),
+            ),
+            child: Image.network(
+              image,
+              width: 100,
+              height: 100,
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 15, 10),
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                        builder: (context) => WebViewModul(links: link)),
+                  );
+                }, // Respon ketika button ditekan
+                child: Container(
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 15, 20),
+                  width: 200,
+                  child: Column(
+                    children: <Widget>[
+                      Text(
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                        title,
+                        textAlign: TextAlign.left,
+                        style: const TextStyle(
+                          fontFamily: 'Poppins',
+                          color: kSecondaryColor,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Container(
+                      width: 25,
+                      height: 25,
+                      clipBehavior: Clip.antiAlias,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(color: Colors.white, spreadRadius: 1),
+                        ],
+                      ),
+                      child: Image.network(
+                        listThumbnail[2],
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                      child: Text(
+                        listSource[2],
+                        style: const TextStyle(
+                          fontFamily: 'Poppins',
+                          color: kSecondaryColor,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                      child: SizedBox(
+                        height: 25.0,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              statuslistnews = tipe;
+                            });
+                          },
+                          child: Text(
+                            tipe.capitalize(),
                             style: const TextStyle(
                               fontFamily: 'Poppins',
                               color: kPrimaryColor,

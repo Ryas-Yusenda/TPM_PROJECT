@@ -1,24 +1,16 @@
 // https://tiendung01023.github.io/json_to_dart/
 class BeritaPost {
   BeritaPost({
-    required this.success,
-    this.message,
     required this.data,
   });
 
-  bool success;
-  dynamic message;
   Data data;
 
   factory BeritaPost.fromJson(Map<String, dynamic> json) => BeritaPost(
-        success: json["success"],
-        message: json["message"],
         data: Data.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "success": success,
-        "message": message,
         "data": data.toJson(),
       };
 }
@@ -36,14 +28,16 @@ class Data {
   String image;
   String description;
   String title;
-  List<Post> posts;
+  List<Post> posts = [];
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         link: json["link"],
         image: json["image"],
         description: json["description"],
         title: json["title"],
-        posts: List<Post>.from(json["posts"].map((x) => Post.fromJson(x))),
+        posts: json['posts'] != null
+            ? List<Post>.from(json["posts"].map((x) => Post.fromJson(x)))
+            : [],
       );
 
   Map<String, dynamic> toJson() => {

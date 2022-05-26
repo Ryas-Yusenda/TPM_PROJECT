@@ -9,9 +9,7 @@ class BaseNetwork {
   static Future<Map<String, dynamic>> get(String partUrl) async {
     final String fullUrl = baseUrl + partUrl;
     debugPrint("BaseNetwork - fullUrl : $fullUrl");
-    print(fullUrl);
     final response = await http.get(Uri.parse(fullUrl));
-    print(response);
     debugPrint("BaseNetwork - response : ${response.body}");
     return _processResponse(response);
   }
