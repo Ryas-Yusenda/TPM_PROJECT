@@ -390,7 +390,7 @@ class _HomePageState extends State<HomePage> {
   Widget _listBeritaBuilds(String namaBerita) {
     return Expanded(
       child: FutureBuilder(
-        future: CovidDataSource.instance.loadCountries(),
+        future: CovidDataSource.loadCountries('a'),
         builder: (
           BuildContext context,
           AsyncSnapshot<dynamic> snapshot,

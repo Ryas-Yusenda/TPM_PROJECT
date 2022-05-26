@@ -40,7 +40,7 @@ class Seacher extends StatelessWidget {
   Widget _listBeritaBuild(String namaBerita) {
     return Expanded(
       child: FutureBuilder(
-        future: CovidDataSource.instance.loadCountries(),
+        future: CovidDataSource.loadCountries(namaBerita),
         builder: (
           BuildContext context,
           AsyncSnapshot<dynamic> snapshot,

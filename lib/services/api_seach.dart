@@ -2,7 +2,7 @@ import 'base_network_cari.dart';
 
 class CovidDataSource {
   static CovidDataSource instance = CovidDataSource();
-  Future<Map<String, dynamic>> loadCountries() {
-    return BaseNetwork.get('laut');
+  static Future<Map<String, dynamic>> loadCountries(String partUrl) async {
+    return BaseNetwork.get(partUrl);
   }
 }
