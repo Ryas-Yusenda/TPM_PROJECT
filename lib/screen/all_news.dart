@@ -22,8 +22,7 @@ class AllNews extends StatelessWidget {
         ),
       ),
       body: Column(children: [
-        _listBeritaBuild1('politik'),
-        _listBeritaBuild2('hukum'),
+        _listBeritaBuild1('terbaru'),
       ]),
     );
   }
@@ -47,24 +46,6 @@ class AllNews extends StatelessWidget {
     );
   }
 
-  Widget _listBeritaBuild2(String namaBerita) {
-    return Expanded(
-      flex: 2,
-      child: FutureBuilder(
-        future: NewsDataSource.instance.loadNews(namaBerita),
-        builder: (
-          BuildContext context,
-          AsyncSnapshot<dynamic> snapshot,
-        ) {
-          if (snapshot.hasData) {
-            BeritaPost countriesModel = BeritaPost.fromJson(snapshot.data);
-            return _listBeritaBuildSuccess(countriesModel, namaBerita);
-          }
-          return _listBeritaBuildLoading();
-        },
-      ),
-    );
-  }
 
   Widget _listBeritaBuildLoading() {
     return const Center(

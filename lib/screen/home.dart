@@ -20,7 +20,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  var statuslistnews = 'Terbaru';
+  var statuslistnews = 'terbaru';
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
@@ -58,8 +58,8 @@ class _HomePageState extends State<HomePage> {
               icon: Padding(
                 padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
                 child: Icon(
-                  Icons.home,
-                  size: 25,
+                  Icons.home_outlined,
+                  size: 28,
                 ),
               ),
               label: '',
@@ -68,8 +68,8 @@ class _HomePageState extends State<HomePage> {
               icon: Padding(
                 padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
                 child: Icon(
-                  Icons.search,
-                  size: 25,
+                  Icons.bookmark_add_outlined,
+                  size: 28,
                 ),
               ),
               label: '',
@@ -78,8 +78,8 @@ class _HomePageState extends State<HomePage> {
             icon: Padding(
               padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
               child: Icon(
-                Icons.person,
-                size: 25,
+                Icons.person_outlined,
+                size: 28,
               ),
             ),
             label: '',
@@ -393,15 +393,19 @@ class _CariForm extends StatelessWidget {
     String kata = "";
 
     return Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(10, 30, 10, 20),
+      padding: const EdgeInsetsDirectional.fromSTEB(10, 20, 10, 20),
       child: SizedBox(
-        height: 35.0,
+        height: 30.0,
         width: 320.0,
         child: TextFormField(
+          autofocus: false,
           decoration: InputDecoration(
             icon: IconButton(
-                icon: const Icon(Icons.search),
-                tooltip: 'Increase volume by 10',
+                icon: const Icon(
+                  Icons.search,
+                  size: 20,
+                  color: kPrimaryColor,
+                ),
                 onPressed: () => {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
@@ -410,7 +414,17 @@ class _CariForm extends StatelessWidget {
                         );
                       })),
                     }),
-            hintText: '...',
+            hintText: 'Cari',
+            contentPadding:
+                const EdgeInsets.only(left: 14.0, bottom: 8.0, top: 8.0),
+            focusedBorder: OutlineInputBorder(
+              borderSide: const BorderSide(color: Colors.white),
+              borderRadius: BorderRadius.circular(25.7),
+            ),
+            enabledBorder: UnderlineInputBorder(
+              borderSide: const BorderSide(color: Colors.white),
+              borderRadius: BorderRadius.circular(25.7),
+            ),
           ),
           onSaved: (String? value) {},
           onChanged: (value) {

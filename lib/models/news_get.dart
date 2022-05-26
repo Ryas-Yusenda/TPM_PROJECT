@@ -1,4 +1,4 @@
-// https://app.quicktype.io/
+// https://tiendung01023.github.io/json_to_dart/
 class BeritaPost {
   BeritaPost({
     required this.success,

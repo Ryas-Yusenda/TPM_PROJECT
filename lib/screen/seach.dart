@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:news_info/constants.dart';
+import 'package:news_info/models/cari_berita.dart';
+import 'package:news_info/screen/web_view.dart';
+import 'package:news_info/services/api_seach.dart';
+import 'package:news_info/services/string_extension.dart';
 
 class Seacher extends StatelessWidget {
   final String kataKunci;
@@ -20,33 +24,188 @@ class Seacher extends StatelessWidget {
               fontWeight: FontWeight.w600),
         ),
       ),
-      body: Container(
-        padding: const EdgeInsets.symmetric(
-          vertical: 12,
-          horizontal: 24,
+      body: _main(),
+    );
+  }
+
+  Widget _main() {
+    return Column(
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          _listBeritaBuild(kataKunci.toLowerCase()),
+        ]);
+  }
+
+  Widget _listBeritaBuild(String namaBerita) {
+    return Expanded(
+      child: FutureBuilder(
+        future: CovidDataSource.instance.loadCountries(),
+        builder: (
+          BuildContext context,
+          AsyncSnapshot<dynamic> snapshot,
+        ) {
+          if (snapshot.hasData) {
+            CountriesModel countriesModel =
+                CountriesModel.fromJson(snapshot.data);
+            return _listBeritaBuildSuccess(countriesModel);
+          }
+          return _listBeritaBuildLoading();
+        },
+      ),
+    );
+  }
+
+  Widget _listBeritaBuildLoading() {
+    return const Center(
+      child: CircularProgressIndicator(),
+    );
+  }
+
+  Widget _listBeritaBuildSuccess(CountriesModel data) {
+    return ListView.builder(
+      itemCount: data.countries?.length,
+      itemBuilder: (BuildContext context, int index) {
+        return _listBeritaBuildSuccessDetail(
+          context,
+          data.countries?[index].judul,
+          data.countries?[index].link,
+          data.countries?[index].poster,
+          data.countries?[index].tipe,
+        );
+      },
+    );
+  }
+
+  Widget _listBeritaBuildSuccessDetail(BuildContext context, String? title,
+      String? link, String? image, String? tipe) {
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Padding(
+          padding: const EdgeInsetsDirectional.fromSTEB(15, 10, 10, 10),
+          child: ClipRRect(
+            borderRadius: const BorderRadius.only(
+              bottomLeft: Radius.circular(12),
+              bottomRight: Radius.circular(0),
+              topLeft: Radius.circular(12),
+              topRight: Radius.circular(0),
+            ),
+            child: Image.network(
+              image!,
+              width: 100,
+              height: 100,
+              fit: BoxFit.cover,
+            ),
+          ),
         ),
-        child: Center(
+        Padding(
+          padding: const EdgeInsetsDirectional.fromSTEB(0, 10, 15, 10),
           child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                "Biodata",
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                        builder: (context) => WebViewModul(links: link!)),
+                  );
+                }, // Respon ketika button ditekan
+                child: Container(
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 15, 20),
+                  width: 200,
+                  child: Column(
+                    children: <Widget>[
+                      Text(
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                        title!,
+                        textAlign: TextAlign.left,
+                        style: const TextStyle(
+                          fontFamily: 'Poppins',
+                          color: kSecondaryColor,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-              const SizedBox(height: 32),
-              Text(
-                kataKunci.toUpperCase(),
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Container(
+                      width: 25,
+                      height: 25,
+                      clipBehavior: Clip.antiAlias,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(color: Colors.white, spreadRadius: 1),
+                        ],
+                      ),
+                      child: Image.network(
+                        listThumbnail[2],
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                      child: Text(
+                        listSource[2],
+                        style: const TextStyle(
+                          fontFamily: 'Poppins',
+                          color: kSecondaryColor,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                      child: SizedBox(
+                        height: 25.0,
+                        child: ElevatedButton(
+                          child: Text(
+                            tipe!.capitalize(),
+                            style: const TextStyle(
+                              fontFamily: 'Poppins',
+                              color: kPrimaryColor,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.white,
+                            shadowColor: kSecondaryColor,
+                            side: const BorderSide(
+                              color: kPrimaryColor,
+                              width: 1,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
+                          ),
+                          onPressed: () {},
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
           ),
         ),
-      ),
+      ],
     );
   }
 }

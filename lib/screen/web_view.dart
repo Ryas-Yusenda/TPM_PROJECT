@@ -1,4 +1,3 @@
-// ignore_for_file: deprecated_member_use
 import 'dart:async';
 
 import 'package:news_info/constants.dart';
@@ -30,67 +29,39 @@ class _WebViewState extends State<WebViewModul> {
       onProgress: (url) {
         {
           controller.evaluateJavascript(
-              "document.getElementById('parallax1').style.display='none';");
+              "document.getElementsByClassName('row u-full-width')[0].style.display='none';");
           controller.evaluateJavascript(
-              "document.getElementById('impulseadcontainer').style.display='none';");
+              "document.getElementsByClassName('mt-1')[0].style.display='none';");
           controller.evaluateJavascript(
-              "document.getElementById('_forkInArticleAdContainer').style.display='none';");
+              "document.getElementsByClassName('author')[0].style.display='none';");
           controller.evaluateJavascript(
-              "document.getElementById('animation_container').style.display='none';");
+              "document.getElementsByTagName('nav')[1].style.display='none';");
           controller.evaluateJavascript(
-              "document.getElementsByTagName('header')[0].style.display='none';");
+              "document.getElementById('videoContent').style.display='none';");
           controller.evaluateJavascript(
-              "document.getElementsByClassName('smartbanner_new')[0].style.display='none';");
+              "document.getElementById('comment_wrapper').style.display='none';");
           controller.evaluateJavascript(
-              "document.getElementsByClassName('detail_text_breadcrumb gtm_breadcrumb_artikel')[0].style.display='none';");
+              "document.getElementById('scroll-top').style.display='none';");
           controller.evaluateJavascript(
-              "document.getElementsByClassName('linksisip')[0].style.display='none';");
+              "document.getElementsByTagName('footer')[0].style.display='none';");
           controller.evaluateJavascript(
-              "document.getElementsByClassName('sisip_embed_sosmed video_detail')[0].style.display='none';");
+              "document.getElementsByClassName('footer-bottom')[0].style.display='none';");
           controller.evaluateJavascript(
-              "document.getElementById('adsuiteScrollAd').style.display='none';");
+              "var appBanners = document.getElementsByClassName('row item');");
           controller.evaluateJavascript(
-              "function getElementByXpath(path) {return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;}");
+              "for (var i = 0; i < appBanners.length; i ++) {appBanners[i].style.display = 'none';}");
           controller.evaluateJavascript(
-              "getElementByXpath('/html/body/main/article/div[8]').style.display='none';");
+              "var appBanners = document.getElementsByTagName('ins');");
           controller.evaluateJavascript(
-              "getElementByXpath('/html/body/main/article/div[9]').style.display='none';");
-          controller.evaluateJavascript(
-              "getElementByXpath('/html/body/main/article/div[10]').style.display='none';");
-          controller.evaluateJavascript(
-              "getElementByXpath('/html/body/main/article/div[11]').style.display='none';");
-          controller.evaluateJavascript(
-              "getElementByXpath('/html/body/main/article/div[12]').style.display='none';");
-          controller.evaluateJavascript(
-              "getElementByXpath('/html/body/main/article/div[13]').style.display='none';");
-          controller.evaluateJavascript(
-              "getElementByXpath('/html/body/main/article/div[14]').style.display='none';");
+              "for (var i = 0; i < appBanners.length; i ++) {appBanners[i].style.display = 'none';}");
           controller.evaluateJavascript(
               "var appBanners = document.getElementsByTagName('span');");
           controller.evaluateJavascript(
               "for (var i = 0; i < appBanners.length; i ++) {appBanners[i].style.display = 'none';}");
           controller.evaluateJavascript(
-              "var appBanners = document.getElementsByClassName('box-ads');");
+              "var appBanners = document.getElementsByClassName('widget-title bg-gray');");
           controller.evaluateJavascript(
               "for (var i = 0; i < appBanners.length; i ++) {appBanners[i].style.display = 'none';}");
-          controller.evaluateJavascript(
-              "document.getElementsByClassName('linksisip')[1].style.display='none';");
-          controller.evaluateJavascript(
-              "getElementByXpath('/html/body/main/article/div[15]').style.display='none';");
-          controller.evaluateJavascript(
-              "var appBanners = document.getElementsByTagName('iframe');");
-          controller.evaluateJavascript(
-              "for (var i = 0; i < appBanners.length; i ++) {appBanners[i].style.display = 'none';}");
-          controller.evaluateJavascript(
-              "var appBanners = document.getElementsByTagName('table');");
-          controller.evaluateJavascript(
-              "for (var i = 0; i < appBanners.length; i ++) {appBanners[i].style.display = 'none';}");
-          controller.evaluateJavascript(
-              "var appBanners = document.getElementsByTagName('video');");
-          controller.evaluateJavascript(
-              "for (var i = 0; i < appBanners.length; i ++) {appBanners[i].style.display = 'none';}");
-          controller.evaluateJavascript(
-              "document.getElementsByTagName('footer')[0].style.display='none';");
           controller.evaluateJavascript("");
           controller.evaluateJavascript("");
         }
