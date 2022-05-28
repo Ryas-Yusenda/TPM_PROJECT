@@ -12,6 +12,7 @@ class BaseNetwork {
     debugPrint("BaseNetwork - fullUrl : $fullUrl");
     final response = await http.get(Uri.parse(fullUrl));
     debugPrint("BaseNetwork - response : ${response.body}");
+    print("============> {BERHASIL MENGAMBIL DATA} => $fullUrl");
     return _processResponse(response);
   }
 
@@ -28,6 +29,6 @@ class BaseNetwork {
   }
 
   static void debugPrint(String value) {
-    print("[BASE_NETWORK] - $value");
+    // print("[BASE_NETWORK] - $value");
   }
 }

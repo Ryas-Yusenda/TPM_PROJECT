@@ -22,8 +22,8 @@ class Bookmark extends StatelessWidget {
               fontWeight: FontWeight.w600),
         ),
       ),
-      body: const Center(
-        child: Text("BookMark"),
+      body: Center(
+        child: Text(kataKunci),
       ),
       bottomNavigationBar: bottomNavMain(context),
     );

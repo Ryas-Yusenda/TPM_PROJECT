@@ -148,6 +148,13 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _listTemaBuildBerita(String name) {
+    String name1 = name;
+    if (name == 'top-news') {
+      name1 = 'Top News';
+    }
+    if (name == 'warta-bumi') {
+      name1 = 'Warta Bumi';
+    }
     return Padding(
       padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 10, 12),
       child: SizedBox(
@@ -161,7 +168,7 @@ class _HomePageState extends State<HomePage> {
             });
           },
           child: Text(
-            name.capitalize(),
+            name1.capitalize(),
             style: TextStyle(
               fontFamily: 'Poppins',
               color: warnaListNews(statuslistnews, name)
@@ -231,6 +238,13 @@ class _HomePageState extends State<HomePage> {
 
   Widget _listBeritaBuildSuccessDetails(BuildContext context, String title,
       String link, String image, String tipe) {
+    String name1 = tipe;
+    if (tipe == 'Top News') {
+      name1 = 'top-news';
+    }
+    if (tipe == 'Warta Bumi') {
+      name1 = 'warta-bumi';
+    }
     return Row(
       mainAxisSize: MainAxisSize.max,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -329,7 +343,8 @@ class _HomePageState extends State<HomePage> {
                         child: ElevatedButton(
                           onPressed: () {
                             setState(() {
-                              statuslistnews = tipe;
+                              statuslistnews = name1;
+                              // print(statuslistnews);
                             });
                           },
                           child: Text(
