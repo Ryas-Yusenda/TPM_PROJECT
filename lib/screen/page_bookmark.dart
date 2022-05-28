@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_info/constants.dart';
 import 'package:news_info/screen/page_home.dart';
-import 'package:news_info/screen/page_profil.dart';
+import 'package:news_info/services/page_profil_cek.dart';
 
 class Bookmark extends StatelessWidget {
   final String kataKunci;
@@ -54,6 +54,7 @@ class Bookmark extends StatelessWidget {
                 icon: const Icon(Icons.bookmark_add_outlined),
                 highlightColor: Colors.white,
                 onPressed: () {},
+                iconSize: 30,
               ),
             ),
             label: '',
@@ -66,7 +67,7 @@ class Bookmark extends StatelessWidget {
               highlightColor: Colors.white,
               onPressed: () {
                 Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => const Profile()),
+                  MaterialPageRoute(builder: (context) => const HomePageLogin()),
                 );
               },
             ),
@@ -76,10 +77,10 @@ class Bookmark extends StatelessWidget {
         ),
       ],
       type: BottomNavigationBarType.fixed,
-      backgroundColor: kSecondaryColor,
+      backgroundColor: kPrimaryColor,
       currentIndex: _selectedIndex,
-      selectedItemColor: Colors.white,
-      unselectedItemColor: kPrimaryColor,
+      selectedItemColor: kWhite,
+      unselectedItemColor: kSecondaryColor,
     );
   }
 }

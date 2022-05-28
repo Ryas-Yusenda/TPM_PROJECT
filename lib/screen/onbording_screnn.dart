@@ -79,7 +79,7 @@ class _OnBordingScreenState extends State<OnBordingScreen> {
                         ),
                         child: SvgPicture.asset(
                           "assets/icons/arrow-right.svg",
-                          color: kThirdColor,
+                          color: kWhite,
                         )),
                   ),
                 ],

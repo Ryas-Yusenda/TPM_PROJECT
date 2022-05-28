@@ -44,11 +44,10 @@ android {
 
     defaultConfig {
         applicationId "com.example.news_info"
-        minSdkVersion flutter.minSdkVersion
+        minSdkVersion 21
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
-        minSdkVersion 19
     }
 
     buildTypes {
@@ -66,3 +65,6 @@ flutter {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
+
+
+apply plugin: 'com.google.gms.google-services'

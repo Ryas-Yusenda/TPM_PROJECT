@@ -1,33 +1,61 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:news_info/constants.dart';
+import 'package:news_info/models/google_sign_in.dart';
 import 'package:news_info/screen/page_bookmark.dart';
 import 'package:news_info/screen/page_home.dart';
+import 'package:provider/provider.dart';
 
-class Profile extends StatefulWidget {
-  const Profile({Key? key}) : super(key: key);
-
-  @override
-  State<Profile> createState() => _ProfileState();
-}
-
-class _ProfileState extends State<Profile> {
+class LoggedInWidget extends StatelessWidget {
+  const LoggedInWidget({Key? key}) : super(key: key);
   final int _selectedIndex = 2;
 
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser!;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'CNN',
+          'Profile',
           style: TextStyle(
               color: kSecondaryColor,
               fontSize: 28.0,
               fontFamily: 'Roboto',
               fontWeight: FontWeight.w600),
         ),
+        actions: [
+          TextButton(
+            child: const Text('Keluar', style: TextStyle(color: kPrimaryColor)),
+            onPressed: () {
+              final provider =
+                  Provider.of<GoogleSignInProvider>(context, listen: false);
+              provider.logout();
+            },
+          )
+        ],
       ),
-      body: const Center(
-        child: Text("Profile"),
+      body: Container(
+        alignment: Alignment.center,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CircleAvatar(
+              radius: 32,
+              backgroundImage: NetworkImage(user.photoURL!),
+            ),
+            const SizedBox(height: 32),
+            Text(
+              'Name: ' + user.displayName!,
+              style: const TextStyle(fontSize: 18),
+            ),
+            const SizedBox(height: 32),
+            Text(
+              'Email: ' + user.email!,
+              style: const TextStyle(fontSize: 18),
+            ),
+          ],
+        ), // Column
       ),
       bottomNavigationBar: bottomNavMain(context),
     );
@@ -75,6 +103,7 @@ class _ProfileState extends State<Profile> {
             child: IconButton(
               icon: const Icon(Icons.person_outlined),
               highlightColor: Colors.white,
+              iconSize: 30,
               onPressed: () {},
             ),
           ),
@@ -83,10 +112,10 @@ class _ProfileState extends State<Profile> {
         ),
       ],
       type: BottomNavigationBarType.fixed,
-      backgroundColor: kSecondaryColor,
+      backgroundColor: kPrimaryColor,
       currentIndex: _selectedIndex,
-      selectedItemColor: Colors.white,
-      unselectedItemColor: kPrimaryColor,
+      selectedItemColor: kWhite,
+      unselectedItemColor: kSecondaryColor,
     );
   }
 }

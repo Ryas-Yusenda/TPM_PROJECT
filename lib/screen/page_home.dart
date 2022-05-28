@@ -3,8 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:news_info/models/cari_berita.dart';
 import 'package:news_info/screen/onbording_screnn.dart';
-import 'package:news_info/screen/page_profil.dart';
+import 'package:news_info/screen/page_profil_in.dart';
 import 'package:news_info/screen/page_bookmark.dart';
+import 'package:news_info/services/page_profil_cek.dart';
 import 'package:news_info/screen/web_view.dart';
 import 'package:news_info/services/api_seach.dart';
 import 'package:news_info/services/string_extension.dart';
@@ -60,10 +61,11 @@ class _HomePageState extends State<HomePage> {
       items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
             icon: Padding(
-              padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
               child: IconButton(
                 icon: const Icon(Icons.home_outlined),
                 highlightColor: Colors.white,
+                iconSize: 30,
                 onPressed: () {},
               ),
             ),
@@ -71,7 +73,7 @@ class _HomePageState extends State<HomePage> {
             backgroundColor: kSecondaryColor),
         BottomNavigationBarItem(
             icon: Padding(
-              padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
               child: IconButton(
                 icon: const Icon(Icons.bookmark_add_outlined),
                 highlightColor: Colors.white,
@@ -89,13 +91,14 @@ class _HomePageState extends State<HomePage> {
             backgroundColor: kSecondaryColor),
         BottomNavigationBarItem(
           icon: Padding(
-            padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+            padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
             child: IconButton(
               icon: const Icon(Icons.person_outlined),
               highlightColor: Colors.white,
               onPressed: () {
                 Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => const Profile()),
+                  MaterialPageRoute(
+                      builder: (context) => const HomePageLogin()),
                 );
               },
             ),
@@ -105,10 +108,10 @@ class _HomePageState extends State<HomePage> {
         ),
       ],
       type: BottomNavigationBarType.fixed,
-      backgroundColor: kSecondaryColor,
+      backgroundColor: kPrimaryColor,
       currentIndex: _selectedIndex,
-      selectedItemColor: Colors.white,
-      unselectedItemColor: kPrimaryColor,
+      selectedItemColor: kWhite,
+      unselectedItemColor: kSecondaryColor,
     );
   }
 
