@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:news_info/constants.dart';
 import 'package:news_info/screen/page_home.dart';
@@ -6,35 +7,20 @@ import 'package:news_info/services/page_profil_cek.dart';
 class BookmarkIn extends StatelessWidget {
   final int _selectedIndex = 1;
 
-  const BookmarkIn({Key? key}) : super(key: key);
+  final controller = TextEditingController();
+
+  BookmarkIn({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Bookmark',
-          style: TextStyle(
-              color: kSecondaryColor,
-              fontSize: 28.0,
-              fontFamily: 'Roboto',
-              fontWeight: FontWeight.w600),
-        ),
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: const [
-          Center(
-            child: Text(
-              'BUAT MENU LIHAT BOOKMARK',
-              style: TextStyle(
-                  color: kSecondaryColor,
-                  fontSize: 18.0,
-                  fontFamily: 'Roboto',
-                  fontWeight: FontWeight.w400),
-            ),
-          ),
+        title: const TextField(),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.add, color: kPrimaryColor),
+            onPressed: () {},
+          )
         ],
       ),
       bottomNavigationBar: bottomNavMain(context),
@@ -98,4 +84,6 @@ class BookmarkIn extends StatelessWidget {
       unselectedItemColor: kSecondaryColor,
     );
   }
+
+  
 }

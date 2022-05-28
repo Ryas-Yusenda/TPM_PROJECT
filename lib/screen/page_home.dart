@@ -1,7 +1,9 @@
 // ignore_for_file: unused_element, unused_import, avoid_print
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:news_info/models/cari_berita.dart';
+import 'package:news_info/models/firebase_cloud.dart';
 import 'package:news_info/screen/onbording_screnn.dart';
 import 'package:news_info/screen/page_profil_out.dart';
 import 'package:news_info/screen/page_bookmark_out.dart';
@@ -95,7 +97,7 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
             child: IconButton(
               icon: const Icon(Icons.person_outlined),
-                iconSize: 30,
+              iconSize: 30,
               highlightColor: Colors.white,
               onPressed: () {
                 Navigator.of(context).pushReplacement(
@@ -375,6 +377,13 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                     ),
+                    IconButton(
+                      icon: const Icon(Icons.add_circle_outline_rounded,
+                          color: kPrimaryColor),
+                      onPressed: () {
+                        createUser(name: title, link: link, poster: image, tipe: tipe);
+                      },
+                    )
                   ],
                 ),
               ),
@@ -383,6 +392,27 @@ class _HomePageState extends State<HomePage> {
         ),
       ],
     );
+  }
+
+  Future createUser({
+    required String name,
+    required String link,
+    required String poster,
+    required String tipe,
+  }) async {
+    final docUser = FirebaseFirestore.instance.collection('bookmark').doc();
+
+    final user = User(
+      id: docUser.id,
+      judul: name,
+      link: link,
+      poster: poster,
+      tipe: tipe,
+    );
+
+    final json = user.toJson();
+
+    await docUser.set(json);
   }
 }
 
