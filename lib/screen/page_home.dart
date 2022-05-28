@@ -3,7 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:news_info/models/cari_berita.dart';
 import 'package:news_info/screen/onbording_screnn.dart';
-import 'package:news_info/screen/seach.dart';
+import 'package:news_info/screen/page_profil.dart';
+import 'package:news_info/screen/page_bookmark.dart';
 import 'package:news_info/screen/web_view.dart';
 import 'package:news_info/services/api_seach.dart';
 import 'package:news_info/services/string_extension.dart';
@@ -50,47 +51,64 @@ class _HomePageState extends State<HomePage> {
       ),
       body: _main(),
       // body: _widgetOptions.elementAt(_selectedIndex),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-              icon: Padding(
-                padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                child: Icon(
-                  Icons.home_outlined,
-                  size: 28,
-                ),
-              ),
-              label: '',
-              backgroundColor: kSecondaryColor),
-          BottomNavigationBarItem(
-              icon: Padding(
-                padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                child: Icon(
-                  Icons.bookmark_add_outlined,
-                  size: 28,
-                ),
-              ),
-              label: '',
-              backgroundColor: kSecondaryColor),
-          BottomNavigationBarItem(
+      bottomNavigationBar: bottomNavMain(context),
+    );
+  }
+
+  BottomNavigationBar bottomNavMain(BuildContext context) {
+    return BottomNavigationBar(
+      items: <BottomNavigationBarItem>[
+        BottomNavigationBarItem(
             icon: Padding(
-              padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-              child: Icon(
-                Icons.person_outlined,
-                size: 28,
+              padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+              child: IconButton(
+                icon: const Icon(Icons.home_outlined),
+                highlightColor: Colors.white,
+                onPressed: () {},
               ),
             ),
             label: '',
-            backgroundColor: kSecondaryColor,
+            backgroundColor: kSecondaryColor),
+        BottomNavigationBarItem(
+            icon: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+              child: IconButton(
+                icon: const Icon(Icons.bookmark_add_outlined),
+                highlightColor: Colors.white,
+                onPressed: () {
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                        builder: (context) => const Bookmark(
+                              kataKunci: 'aaa',
+                            )),
+                  );
+                },
+              ),
+            ),
+            label: '',
+            backgroundColor: kSecondaryColor),
+        BottomNavigationBarItem(
+          icon: Padding(
+            padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+            child: IconButton(
+              icon: const Icon(Icons.person_outlined),
+              highlightColor: Colors.white,
+              onPressed: () {
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => const Profile()),
+                );
+              },
+            ),
           ),
-        ],
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: kSecondaryColor,
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.white,
-        unselectedItemColor: kPrimaryColor,
-        onTap: _onItemTapped,
-      ),
+          label: '',
+          backgroundColor: kSecondaryColor,
+        ),
+      ],
+      type: BottomNavigationBarType.fixed,
+      backgroundColor: kSecondaryColor,
+      currentIndex: _selectedIndex,
+      selectedItemColor: Colors.white,
+      unselectedItemColor: kPrimaryColor,
     );
   }
 
@@ -177,7 +195,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-    Widget _listBeritaBuilds(String namaBerita) {
+  Widget _listBeritaBuilds(String namaBerita) {
     return Expanded(
       child: FutureBuilder(
         future: CovidDataSource.loadCountries("bebas/?q=" + namaBerita),
@@ -375,7 +393,7 @@ class _CariForm extends StatelessWidget {
                 onPressed: () => {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
-                        return Seacher(
+                        return Bookmark(
                           kataKunci: kata,
                         );
                       })),

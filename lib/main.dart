@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:news_info/screen/home.dart';
+import 'package:news_info/screen/page_home.dart';
 import 'package:news_info/constants.dart';
 import 'package:news_info/screen/onbording_screnn.dart';
 import 'package:shared_preferences/shared_preferences.dart';

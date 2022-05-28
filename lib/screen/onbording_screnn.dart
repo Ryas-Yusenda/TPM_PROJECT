@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:news_info/screen/home.dart';
+import 'package:news_info/screen/page_home.dart';
 import 'package:news_info/constants.dart';
 
 class OnBordingScreen extends StatefulWidget {

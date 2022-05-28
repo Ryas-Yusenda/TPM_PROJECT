@@ -11,7 +11,7 @@ const kPrimaryGradient = LinearGradient(
 );
 
 bool warnaListNews(String data1, String data2) {
-  if (data1 == data2) {
+  if (data1.toLowerCase() == data2.toLowerCase()) {
     return true;
   }
   return false;

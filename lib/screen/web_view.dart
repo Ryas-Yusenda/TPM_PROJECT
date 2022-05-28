@@ -28,42 +28,42 @@ class _WebViewState extends State<WebViewModul> {
       },
       onProgress: (url) {
         {
-          controller.runJavascript(
+          controller.evaluateJavascript(
               "document.getElementsByClassName('row u-full-width')[0].style.display='none';");
-          controller.runJavascript(
+          controller.evaluateJavascript(
               "document.getElementsByClassName('mt-1')[0].style.display='none';");
-          controller.runJavascript(
+          controller.evaluateJavascript(
               "document.getElementsByClassName('author')[0].style.display='none';");
-          controller.runJavascript(
+          controller.evaluateJavascript(
               "document.getElementsByTagName('nav')[1].style.display='none';");
-          controller.runJavascript(
+          controller.evaluateJavascript(
               "document.getElementById('videoContent').style.display='none';");
-          controller.runJavascript(
+          controller.evaluateJavascript(
               "document.getElementById('comment_wrapper').style.display='none';");
-          controller.runJavascript(
+          controller.evaluateJavascript(
               "document.getElementById('scroll-top').style.display='none';");
-          controller.runJavascript(
+          controller.evaluateJavascript(
               "document.getElementsByTagName('footer')[0].style.display='none';");
-          controller.runJavascript(
+          controller.evaluateJavascript(
               "document.getElementsByClassName('footer-bottom')[0].style.display='none';");
-          controller.runJavascript(
+          controller.evaluateJavascript(
               "var appBanners = document.getElementsByClassName('row item');");
-          controller.runJavascript(
+          controller.evaluateJavascript(
               "for (var i = 0; i < appBanners.length; i ++) {appBanners[i].style.display = 'none';}");
-          controller.runJavascript(
+          controller.evaluateJavascript(
               "var appBanners = document.getElementsByTagName('ins');");
-          controller.runJavascript(
+          controller.evaluateJavascript(
               "for (var i = 0; i < appBanners.length; i ++) {appBanners[i].style.display = 'none';}");
-          controller.runJavascript(
+          controller.evaluateJavascript(
               "var appBanners = document.getElementsByTagName('span');");
-          controller.runJavascript(
+          controller.evaluateJavascript(
               "for (var i = 0; i < appBanners.length; i ++) {appBanners[i].style.display = 'none';}");
-          controller.runJavascript(
+          controller.evaluateJavascript(
               "var appBanners = document.getElementsByClassName('widget-title bg-gray');");
-          controller.runJavascript(
+          controller.evaluateJavascript(
               "for (var i = 0; i < appBanners.length; i ++) {appBanners[i].style.display = 'none';}");
-          controller.runJavascript("");
-          controller.runJavascript("");
+          controller.evaluateJavascript("");
+          controller.evaluateJavascript("");
         }
       },
     );
