@@ -3,8 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:news_info/models/cari_berita.dart';
 import 'package:news_info/screen/onbording_screnn.dart';
-import 'package:news_info/screen/page_profil_in.dart';
-import 'package:news_info/screen/page_bookmark.dart';
+import 'package:news_info/screen/page_profil_out.dart';
+import 'package:news_info/screen/page_bookmark_out.dart';
+import 'package:news_info/screen/seach.dart';
+import 'package:news_info/services/page_bookmark_cek.dart';
 import 'package:news_info/services/page_profil_cek.dart';
 import 'package:news_info/screen/web_view.dart';
 import 'package:news_info/services/api_seach.dart';
@@ -76,13 +78,12 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
               child: IconButton(
                 icon: const Icon(Icons.bookmark_add_outlined),
+                iconSize: 30,
                 highlightColor: Colors.white,
                 onPressed: () {
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
-                        builder: (context) => const Bookmark(
-                              kataKunci: 'aaa',
-                            )),
+                        builder: (context) => const BookmarkPageLogin()),
                   );
                 },
               ),
@@ -94,6 +95,7 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
             child: IconButton(
               icon: const Icon(Icons.person_outlined),
+                iconSize: 30,
               highlightColor: Colors.white,
               onPressed: () {
                 Navigator.of(context).pushReplacement(
@@ -411,7 +413,7 @@ class _CariForm extends StatelessWidget {
                 onPressed: () => {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
-                        return Bookmark(
+                        return Seacher(
                           kataKunci: kata,
                         );
                       })),

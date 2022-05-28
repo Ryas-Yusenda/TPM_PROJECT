@@ -14,7 +14,7 @@ class Bookmark extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'CNN',
+          'Bookmark',
           style: TextStyle(
               color: kSecondaryColor,
               fontSize: 28.0,
@@ -22,8 +22,21 @@ class Bookmark extends StatelessWidget {
               fontWeight: FontWeight.w600),
         ),
       ),
-      body: Center(
-        child: Text(kataKunci),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Center(
+            child: Text(
+              kataKunci,
+              style: const TextStyle(
+                  color: kSecondaryColor,
+                  fontSize: 18.0,
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.w400),
+            ),
+          ),
+        ],
       ),
       bottomNavigationBar: bottomNavMain(context),
     );
@@ -37,6 +50,7 @@ class Bookmark extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
               child: IconButton(
                 icon: const Icon(Icons.home_outlined),
+                iconSize: 30,
                 highlightColor: Colors.white,
                 onPressed: () {
                   Navigator.of(context).pushReplacement(
@@ -64,10 +78,12 @@ class Bookmark extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
             child: IconButton(
               icon: const Icon(Icons.person_outlined),
+                iconSize: 30,
               highlightColor: Colors.white,
               onPressed: () {
                 Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => const HomePageLogin()),
+                  MaterialPageRoute(
+                      builder: (context) => const HomePageLogin()),
                 );
               },
             ),
