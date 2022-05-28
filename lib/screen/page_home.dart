@@ -382,6 +382,10 @@ class _HomePageState extends State<HomePage> {
                           color: kPrimaryColor),
                       onPressed: () {
                         createUser(name: title, link: link, poster: image, tipe: tipe);
+                        SnackBar snackBar = const SnackBar(
+                          content: Text('Berita Berhasil Disimpan'),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       },
                     )
                   ],

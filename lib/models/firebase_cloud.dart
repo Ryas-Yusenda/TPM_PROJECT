@@ -20,4 +20,12 @@ class User {
         'poster': poster,
         'tipe': tipe,
       };
+
+  static User fromJson(Map<String, dynamic> json) => User(
+        id: json['id'],
+        judul: json['judul'],
+        link: json['link'],
+        poster: json['poster'],
+        tipe: json['tipe'],
+      );
 }
