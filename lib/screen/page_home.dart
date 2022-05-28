@@ -1,6 +1,7 @@
 // ignore_for_file: unused_element, unused_import, avoid_print
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:news_info/models/cari_berita.dart';
 import 'package:news_info/models/firebase_cloud.dart';
@@ -24,6 +25,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final userGoogle = FirebaseAuth.instance.currentUser?.uid;
   var statuslistnews = "top-news";
   int _selectedIndex = 0;
 
@@ -381,11 +383,14 @@ class _HomePageState extends State<HomePage> {
                       icon: const Icon(Icons.add_circle_outline_rounded,
                           color: kPrimaryColor),
                       onPressed: () {
-                        createUser(name: title, link: link, poster: image, tipe: tipe);
+                        createUser(
+                            name: title, link: link, poster: image, tipe: tipe);
                         SnackBar snackBar = const SnackBar(
                           content: Text('Berita Berhasil Disimpan'),
                         );
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        if (userGoogle != null) {
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        }
                       },
                     )
                   ],
@@ -404,19 +409,21 @@ class _HomePageState extends State<HomePage> {
     required String poster,
     required String tipe,
   }) async {
-    final docUser = FirebaseFirestore.instance.collection('bookmark').doc();
+    if (userGoogle != null) {
+      final docUser = FirebaseFirestore.instance.collection(userGoogle!).doc();
 
-    final user = User(
-      id: docUser.id,
-      judul: name,
-      link: link,
-      poster: poster,
-      tipe: tipe,
-    );
+      final user = UserData(
+        id: docUser.id,
+        judul: name,
+        link: link,
+        poster: poster,
+        tipe: tipe,
+      );
 
-    final json = user.toJson();
+      final json = user.toJson();
 
-    await docUser.set(json);
+      await docUser.set(json);
+    }
   }
 }
 

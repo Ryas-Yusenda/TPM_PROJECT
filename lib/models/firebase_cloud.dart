@@ -1,11 +1,11 @@
-class User {
+class UserData {
   String id;
   final String judul;
   final String link;
   final String poster;
   final String tipe;
 
-  User({
+  UserData({
     this.id = '',
     required this.judul,
     required this.link,
@@ -21,7 +21,7 @@ class User {
         'tipe': tipe,
       };
 
-  static User fromJson(Map<String, dynamic> json) => User(
+  static UserData fromJson(Map<String, dynamic> json) => UserData(
         id: json['id'],
         judul: json['judul'],
         link: json['link'],

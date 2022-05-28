@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:news_info/constants.dart';
 import 'package:news_info/models/firebase_cloud.dart';
@@ -10,8 +11,9 @@ class BookmarkIn extends StatelessWidget {
   final int _selectedIndex = 1;
 
   final BuildContext context;
+  final userGoogle = FirebaseAuth.instance.currentUser!;
 
-  const BookmarkIn({Key? key, required this.context}) : super(key: key);
+  BookmarkIn({Key? key, required this.context}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,7 @@ class BookmarkIn extends StatelessWidget {
               fontWeight: FontWeight.w600),
         ),
       ),
-      body: StreamBuilder<List<User>>(
+      body: StreamBuilder<List<UserData>>(
           stream: readUser(),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
@@ -103,17 +105,17 @@ class BookmarkIn extends StatelessWidget {
     );
   }
 
-  Stream<List<User>> readUser() => FirebaseFirestore.instance
-      .collection('bookmark')
+  Stream<List<UserData>> readUser() => FirebaseFirestore.instance
+      .collection(userGoogle.uid)
       .snapshots()
       .map((snapshot) =>
-          snapshot.docs.map((doc) => User.fromJson(doc.data())).toList());
+          snapshot.docs.map((doc) => UserData.fromJson(doc.data())).toList());
 
-  Widget buildUser(User user) => Dismissible(
+  Widget buildUser(UserData user) => Dismissible(
         key: UniqueKey(),
         onDismissed: (direction) {
           final docUser =
-              FirebaseFirestore.instance.collection('bookmark').doc(user.id);
+              FirebaseFirestore.instance.collection(userGoogle.uid).doc(user.id);
 
           docUser.delete();
         },
