@@ -383,12 +383,15 @@ class _HomePageState extends State<HomePage> {
                       icon: const Icon(Icons.add_circle_outline_rounded,
                           color: kPrimaryColor),
                       onPressed: () {
-                        createUser(
-                            name: title, link: link, poster: image, tipe: tipe);
-                        SnackBar snackBar = const SnackBar(
-                          content: Text('Berita Berhasil Disimpan'),
-                        );
                         if (userGoogle != null) {
+                          createUser(
+                              name: title,
+                              link: link,
+                              poster: image,
+                              tipe: tipe);
+                          SnackBar snackBar = const SnackBar(
+                            content: Text('Berita Berhasil Disimpan'),
+                          );
                           ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         }
                       },
