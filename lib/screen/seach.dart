@@ -40,14 +40,13 @@ class Seacher extends StatelessWidget {
   Widget _listBeritaBuild(String namaBerita) {
     return Expanded(
       child: FutureBuilder(
-        future: CovidDataSource.loadCountries("search/?q=" + namaBerita),
+        future: BeritaDataSource.loadCountries("search/?q=" + namaBerita),
         builder: (
           BuildContext context,
           AsyncSnapshot<dynamic> snapshot,
         ) {
           if (snapshot.hasData) {
-            CountriesModel countriesModel =
-                CountriesModel.fromJson(snapshot.data);
+            BeritaModel countriesModel = BeritaModel.fromJson(snapshot.data);
             return _listBeritaBuildSuccess(countriesModel);
           }
           return _listBeritaBuildLoading();
@@ -62,7 +61,7 @@ class Seacher extends StatelessWidget {
     );
   }
 
-  Widget _listBeritaBuildSuccess(CountriesModel data) {
+  Widget _listBeritaBuildSuccess(BeritaModel data) {
     return ListView.builder(
       itemCount: data.countries.length,
       itemBuilder: (BuildContext context, int index) {

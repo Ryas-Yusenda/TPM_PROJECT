@@ -214,14 +214,13 @@ class _HomePageState extends State<HomePage> {
   Widget _listBeritaBuilds(String namaBerita) {
     return Expanded(
       child: FutureBuilder(
-        future: CovidDataSource.loadCountries("bebas/?q=" + namaBerita),
+        future: BeritaDataSource.loadCountries("bebas/?q=" + namaBerita),
         builder: (
           BuildContext context,
           AsyncSnapshot<dynamic> snapshot,
         ) {
           if (snapshot.hasData) {
-            CountriesModel countriesModel =
-                CountriesModel.fromJson(snapshot.data);
+            BeritaModel countriesModel = BeritaModel.fromJson(snapshot.data);
             return _listBeritaBuildSuccesss(countriesModel);
           }
           return _listBeritaBuildLoading();
@@ -230,7 +229,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _listBeritaBuildSuccesss(CountriesModel data) {
+  Widget _listBeritaBuildSuccesss(BeritaModel data) {
     return ListView.builder(
       itemCount: data.countries.length,
       itemBuilder: (BuildContext context, int index) {

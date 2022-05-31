@@ -1,8 +1,8 @@
-class CountriesModel {
+class BeritaModel {
   List<Countries> countries = [];
-  CountriesModel({required this.countries});
+  BeritaModel({required this.countries});
 
-  factory CountriesModel.fromJson(Map<String, dynamic> json) => CountriesModel(
+  factory BeritaModel.fromJson(Map<String, dynamic> json) => BeritaModel(
         countries: json["post"] != null
             ? List<Countries>.from(
                 json["post"].map((x) => Countries.fromJson(x)))
